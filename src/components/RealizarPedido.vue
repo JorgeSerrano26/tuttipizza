@@ -17,6 +17,11 @@
         </tbody>
       </table>
       <div class="form-group">
+        <router-link to="/home">
+          <a type="button" class="btn btn-secondary btn-block">VOLVER AL MENÚ PRINCIPAL</a>
+        </router-link>
+      </div>
+      <div class="form-group">
           <router-link to="/detallePedido">
           <a type="button" class="btn btn-secondary btn-block">REALIZAR PEDIDO</a>
           </router-link>

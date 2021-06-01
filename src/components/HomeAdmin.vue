@@ -1,7 +1,21 @@
 <template>
 
   <section class="src-components-home-admin">
-    <h1>src-components-home-admin Component</h1>
+    <div class="jumbotron jumbotron-fluid">
+      <h4>ADMINISTRADOR</h4>
+      <div class="container">
+        <div class="form-group">
+          <router-link to="/estadoPedidos">
+          <a type="button" class="btn btn-secondary btn-block">VER PEDIDOS</a>
+          </router-link>
+        </div>
+        <div class="form-group">
+          <router-link to="/editarPizzas">
+          <a type="button" class="btn btn-secondary btn-block">EDITAR PIZZAS</a>
+          </router-link>
+        </div>
+      </div>
+    </div>
   </section>
 
 </template>

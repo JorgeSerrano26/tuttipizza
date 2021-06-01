@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <section class="src-components-realizar-pedido">
     <h1>src-components-realizar-pedido Component</h1>
@@ -30,7 +30,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
   .src-components-realizar-pedido {
 
   }

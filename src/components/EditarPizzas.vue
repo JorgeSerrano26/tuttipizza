@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <section class="src-components-editar-pizzas">
     <h1>src-components-editar-pizzas Component</h1>
@@ -30,7 +30,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
   .src-components-editar-pizzas {
 
   }

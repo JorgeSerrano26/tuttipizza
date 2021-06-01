@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <section class="src-components-home-admin">
     <h1>src-components-home-admin Component</h1>
@@ -30,7 +30,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
   .src-components-home-admin {
 
   }

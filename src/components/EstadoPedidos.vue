@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <section class="src-components-estado-pedidos">
     <h1>src-components-estado-pedidos Component</h1>
@@ -30,7 +30,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
   .src-components-estado-pedidos {
 
   }

@@ -1,7 +1,5 @@
 <template>
-
   <section class="home">
-    <img src="../assets/logo.png" class="img-fluid" alt="TuttiPizza logo">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <div class="form-group">

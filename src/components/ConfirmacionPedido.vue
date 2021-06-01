@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 
   <section class="src-components-confirmacion-pedido">
     <h1>src-components-confirmacion-pedido Component</h1>
@@ -30,7 +30,7 @@
 
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="css">
   .src-components-confirmacion-pedido {
 
   }

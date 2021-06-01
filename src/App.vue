@@ -1,16 +1,14 @@
 <template>
   <div id="app">
-    <home></home>
+    <img src="../src/assets/logo.png" class="img-fluid" alt="TuttiPizza logo">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import home from './components/Home'
-
 export default {
   name: 'App',
   components: {
-    home
   }
 }
 </script>

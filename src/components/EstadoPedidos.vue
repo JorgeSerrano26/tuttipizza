@@ -42,13 +42,15 @@
     },
 
     methods: {
-      getPedidosAxios() {
-        this.axios(this.url)
-        .then(respuesta => {
+      async getPedidosAxios() {
+        try {
+          let respuesta = await this.axios(this.url)
           console.log(respuesta.data)
           this.pedidos = respuesta.data
-        })
-        .catch(error => console.error(error))
+          }
+          catch(error) {
+            console.error(error) 
+          }
       }
     },
 

@@ -42,13 +42,15 @@
     },
 
     methods: {
-      getPizzasAxios() {
-        this.axios(this.url)
-        .then(respuesta => {
+      async getPizzasAxios() {
+        try {
+          let respuesta = await this.axios(this.url)
           console.log(respuesta.data)
           this.pizzas = respuesta.data
-        })
-        .catch(error => console.error(error))
+          }
+          catch(error) {
+            console.error(error) 
+          }
       }
     },
 

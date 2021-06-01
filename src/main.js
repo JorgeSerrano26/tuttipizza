@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 /* https://router.vuejs.org/ */
 import { router } from './router'
 
+import './httpClient'
+
 Vue.config.productionTip = false
 
 new Vue({

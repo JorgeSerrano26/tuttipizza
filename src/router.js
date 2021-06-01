@@ -8,6 +8,7 @@ import EditarPizzas from './components/EditarPizzas.vue'
 import EstadoPedidos from './components/EstadoPedidos.vue'
 import HomeAdmin from './components/HomeAdmin.vue'
 import RealizarPedido from './components/RealizarPedido.vue'
+import EstadoPedido from './components/EstadoPedido.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,7 @@ export const router = new VueRouter({
         { path: '/editarPizzas', component: EditarPizzas },
         { path: '/estadoPedidos', component: EstadoPedidos },
         { path: '/homeAdmin', component: HomeAdmin },
-        { path: '/realizarPedido', component: RealizarPedido }
+        { path: '/realizarPedido', component: RealizarPedido },
+        { path: '/estadoPedido', component: EstadoPedido }
     ]
 })

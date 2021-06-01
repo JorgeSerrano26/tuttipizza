@@ -1,7 +1,12 @@
 <template>
 
   <section class="src-components-estado-pedido">
-    <h1>src-components-estado-pedido Component</h1>
+    <h1>Estado del pedido</h1>
+    <div class="form-group">
+      <router-link to="/home">
+      <a type="button" class="btn btn-secondary btn-block">VOLVER AL MENÚ PRINCIPAL</a>
+      </router-link>
+    </div>
   </section>
 
 </template>

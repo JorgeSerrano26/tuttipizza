@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
-    res.json("get pizzas")
+    res.json("get pizzas");
 });
 
 router.post('/', async (req, res) => {
@@ -13,14 +13,14 @@ router.get('/:idPizza', async (req, res) => {
     res.json(idPizza);
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:idPizza', async (req, res) => {
     const { params: { idPizza } } = req;
     res.json({
         status: `${idPizza} editado`
     });
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:idPizza', async (req, res) => {
     const { params: { idPizza } } = req;
     res.json({
         status: `${idPizza} eliminado`

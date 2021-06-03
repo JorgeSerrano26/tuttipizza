@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
-    res.json("all the pizzas displayed");
+    res.json("get pizzas");
 });
 
 router.post('/', async (req, res) => {

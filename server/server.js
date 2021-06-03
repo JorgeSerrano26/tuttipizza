@@ -8,10 +8,7 @@ const APP = express();
 APP.use(express.json({ extended: false }))
 APP.use(cors());
 
-//Define routes
-const userRoutes = require('./routes/user');
-
-APP.use('/api/users', userRoutes);
+APP.use('/api/users', require('./routes/user'));
 APP.use('/api/orders', require('./routes/order'));
 APP.use('/api/pizzas', require('./routes/pizza'));
 APP.use('/api/ingredients', require('./routes/ingredient'));

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="../src/assets/logo.png" class="img-fluid" alt="TuttiPizza logo">
+    
     <router-view></router-view>
   </div>
 </template>
@@ -23,4 +23,26 @@ export default {
   margin-top: 60px;
   background-color: #F7F7F7;
 }
+
+.btn-red {
+    background-color: #C0182F !important;
+    color: white !important;
+    margin: 1rem;
+  }
+
+  .img-size {
+    width: 200px;
+    height: 200px;
+  }
+
+  .img-size2 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .title1 {
+    font-weight: 700  !important;
+    color: #707070;
+    font-family: Roboto;
+  }
 </style>

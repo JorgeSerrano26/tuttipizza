@@ -2,9 +2,18 @@
 
   <section class="src-components-estado-pedidos">
     <div class="jumbotron">
-      <h2>Historial de Pedidos</h2>
-      <hr>
-      <table v-if="pedidos.length" class="table table-white">
+      <div class="container">
+        <div class="row ">
+          <div class="col-10">
+            <h2 class="title1 mt-5">Historial de Pedidos</h2> 
+          </div>
+          <div class="col-2 col-offset-2">
+            <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
+          </div>
+        </div>
+      </div> 
+      <br>
+      <table v-if="pedidos.length" class="table table-stripped">
         <thead>
           <tr>
           <th v-for="(col,index) in getCols" :key="index">{{col}}</th>
@@ -18,7 +27,7 @@
       </table>
       <div class="form-group">
         <router-link to="/homeAdmin">
-          <a type="button" class="btn btn-secondary btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
+          <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
         </router-link>
       </div>
     </div>
@@ -42,15 +51,13 @@
     },
 
     methods: {
-      async getPedidosAxios() {
-        try {
-          let respuesta = await this.axios(this.url)
+      getPedidosAxios() {
+        this.axios(this.url)
+        .then(respuesta => {
           console.log(respuesta.data)
           this.pedidos = respuesta.data
-          }
-          catch(error) {
-            console.error(error) 
-          }
+        })
+        .catch(error => console.error(error))
       }
     },
 

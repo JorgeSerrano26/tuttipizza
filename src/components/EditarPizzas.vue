@@ -2,8 +2,17 @@
 
   <section class="src-components-editar-pizzas">
     <div class="jumbotron">
-      <h2>Editar Pizzas</h2>
-      <hr>
+     <div class="container">
+        <div class="row ">
+          <div class="col-10">
+            <h2 class="title1 mt-5">Editar Pizzas</h2> 
+          </div>
+          <div class="col-2 col-offset-2">
+            <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
+          </div>
+        </div>
+      </div> 
+      <br>
       <table v-if="pizzas.length" class="table table-white">
         <thead>
           <tr>
@@ -16,9 +25,10 @@
         </tr>
         </tbody>
       </table>
+      <br>
       <div class="form-group">
         <router-link to="/homeAdmin">
-          <a type="button" class="btn btn-secondary btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
+          <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
         </router-link>
       </div>
     </div>
@@ -42,15 +52,13 @@
     },
 
     methods: {
-      async getPizzasAxios() {
-        try {
-          let respuesta = await this.axios(this.url)
+      getPizzasAxios() {
+        this.axios(this.url)
+        .then(respuesta => {
           console.log(respuesta.data)
           this.pizzas = respuesta.data
-          }
-          catch(error) {
-            console.error(error) 
-          }
+        })
+        .catch(error => console.error(error))
       }
     },
 

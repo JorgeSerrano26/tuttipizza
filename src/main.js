@@ -11,6 +11,8 @@ import { router } from './router'
 
 import './httpClient'
 
+import './form'
+
 Vue.config.productionTip = false
 
 new Vue({

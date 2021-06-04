@@ -12,28 +12,13 @@
         <div class="form-group">
           Número de pedido
           <br>
-          <input placeholder="Número de pedido">
+          <input type="text" name="pedido" id="pedido" autcomplete="off" v-model.trim="pedido" autocomplete="off" placeholder="Número de pedido">
         </div>
         <div class="form-group">
           <router-link to="/estadoPedido">
           <a type="button" class="btn btn-red btn-block" >VER ESTADO DEL PEDIDO</a>
           </router-link>
         </div>
-
-        <!-- <vue-form :state="formState" @submit.prevent="enviar()">
-          <validate tag="div ">
-            <label for="nombre" >Número de pedido</label>
-            <input type="text" id="nroPedido" name="nroPedido" autocomplete="off" class="form-control" v-model.trim="formData.nroPedido" :minlength="minNroPedido" required no-espacios>
-            <field-messages name="nroPedido" show="$dirty">
-              <small slot="required" >Campo requerido</small>
-              <small slot="minlength" >Este campo requiere al menos {{ nombreMinLength }} caracteres</small>
-              
-            </field-messages>
-
-          </validate>
-
-          <button class="btn btn-success mt-3 ml-3 mb-3" type="submit" :disabled="formState.$invalid" >Ver estado</button>
-        </vue-form> -->
       </div>
     </div>
   </section>
@@ -45,28 +30,14 @@
     name: 'home',
     props: [],
     mounted () {
-
     },
+
     data () {
       return {
-        // formData : this.getInitialData(),
-        // formState : {},
-        // minNroPedido : 5
+        pedido: ""
       }
     },
     methods: {
-      // enviar(){
-      //   console.log({...this.formData});
-
-      //   this.formData = this.getInitialData();
-      //   this.formState._reset();
-      // },
-
-      // getInitialData() {
-      //   return {
-      //     nroPedido : ''
-      //   }
-      // }
 
     },
     computed: {

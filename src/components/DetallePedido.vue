@@ -18,18 +18,71 @@
             <div class="card-body">
               <h5 class="card-title">Dirección de entrega</h5>
               <br>
-              <form>
-                <div class="form-group">
-                  <label for="calle">* Calle</label>
-                  <input type="calle" class="form-control" id="calle" placeholder="Calle">
-                  <br>
-                  <label for="altura">* Altura</label>
-                  <input type="number" class="form-control" id="altura" placeholder="Altura">
-                  <br>
-                  <label for="pisoDepto">Piso/Depto</label>
-                  <input type="pisoDepto" class="form-control" id="pisoDepto" placeholder="Piso/Depto">
-                </div>
-              </form>
+              <vue-form :state="formState">
+                <validate tag="div">
+                  <label for="name">Nombre y Apellido</label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    v-model="formData.name"
+                    autocomplete="off" 
+                    required
+                    class="form-control" 
+                    placeholder="Nombre"
+                    minlength="5">
+                  <field-messages name="name" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo Requerido</div>
+                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere como mínimo 5 caracteres</div>
+                  </field-messages>
+                </validate>
+                <br>
+                <validate tag="div">
+                  <label for="street">Calle</label>
+                  <input 
+                    type="text" 
+                    name="street" 
+                    id="street" 
+                    v-model="formData.street"
+                    autocomplete="off" 
+                    required
+                    class="form-control" 
+                    placeholder="Calle"
+                    minlength="5">
+                  <field-messages name="street" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo Requerido</div>
+                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere como mínimo 5 caracteres</div>
+                  </field-messages>
+                </validate>
+                <br>
+                <validate tag="div">                
+                  <label for="street_number">Altura</label>
+                  <input 
+                    type="number" 
+                    name="street_number" 
+                    id="street_number" 
+                    v-model="formData.street_number"
+                    autocomplete="off" 
+                    required
+                    class="form-control" 
+                    placeholder="Altura">
+                  <field-messages name="street_number" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo Requerido</div>
+                  </field-messages>
+                </validate>
+                <br>
+                <validate tag="div">
+                  <label for="floor">Piso/Depto</label>
+                   <input 
+                    type="text" 
+                    name="floor" 
+                    id="floor" 
+                    v-model="formData.floor"
+                    autocomplete="off" 
+                    class="form-control" 
+                    placeholder="Altura">
+                </validate>
+              </vue-form>
             </div>
           </div>
           <div class="card m-3" style="width: 30rem;">
@@ -46,7 +99,6 @@
                           Efectivo
                         </label>
                       </div>
-                      
                       <div class="form-check disabled">
                         <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
                         <label class="form-check-label" for="gridRadios3">
@@ -68,10 +120,7 @@
         </div>
       </div>
       <div class="form-group">
-        <router-link to="/confirmacionPedido">
-          <a type="button" class="btn btn-red btn-block">CONFIRMAR PEDIDO</a>
-          </router-link>
-        
+        <button type="submit" @click="send()" :disabled="formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
       </div>
       <div class="form-group">
           <router-link to="/home">
@@ -89,22 +138,34 @@
     name: 'src-components-detalle-pedido',
     props: [],
     mounted () {
-
     },
     data () {
       return {
-
+        formData: this.getInitialData(),
+        formState: {},
+        minLength: 3
       }
     },
     methods: {
-
+      getInitialData() {
+        return {
+          name: '',
+          email: '',
+          street: '',
+          street_number: '',
+          floor: '',
+          payment_method: 'Efectivo'
+          }
+        },
+      send() {
+        console.log({...this.formData})
+        this.formData = this.getInitialData()
+        alert('Pedido generado correctamente')
+        }
     },
     computed: {
-
-    }
-}
-
-
+    },
+  }
 </script>
 
 <style scoped lang="css">

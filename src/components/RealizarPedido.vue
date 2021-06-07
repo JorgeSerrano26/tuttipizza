@@ -1,22 +1,12 @@
 <template>
   <section class="src-components-realizar-pedido justify-context-center">
     <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          <div class="col-10">
-            <h2 class="title1 mt-5">Detalles del pedido</h2>
-          </div>
-          <div class="col-2 col-offset-2">
-            <img
-              src="../assets/logo tutti pizza.png"
-              class="img-fluid img-size2 mt-2"
-              alt="TuttiPizza logo"
-            />
-          </div>
+      <header class="py-4">
+        <div class="container d-flex flex-row justify-content-between align-items-center">
+          <h2 class="title1">Realizar pedido</h2>
+          <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
-      </div>
-      <br />
-      <br />
+      </header>
 
       <table class="table table-stripped" v-if="pizzas.length">
         <thead>
@@ -57,12 +47,7 @@
       </table>
 
       <div class="container">
-        <div class="row">
-          <div class="col-8"></div>
-          <div class="col-4">
-            <span style="font-weight: 600">Total: $ {{ getTotalPedido }}</span>
-          </div>
-        </div>
+        <h4 class="text-center m-4">Total: $ {{ getTotalPedido }}</h4>
       </div>
 
       <div class="form-group">

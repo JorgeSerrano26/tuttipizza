@@ -2,17 +2,15 @@
 
   <section class="src-components-confirmacion-pedido">
     <div class="jumbotron">
-      <div class="container">
-        <div class="row ">
-          <div class="col-10">
-            <h2 class="title1 mt-5">Tu orden ha sido confirmada</h2> 
-          </div>
-          <div class="col-2 col-offset-2">
-            <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
-          </div>
+     <header class="py-4">
+        <div class="container d-flex flex-row justify-content-between align-items-center">
+          <h2 class="title1">Confirmación</h2>
+          <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
-        <br>
-        <br>
+      </header>
+      <br> 
+      <br>
+      <h2>Tu pedido fue confirmado</h2>
       <h2>N°123456</h2>
       <br>
       <br>
@@ -21,7 +19,6 @@
         <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ PRINCIPAL</a>
         </router-link>
       </div>
-    </div>
     </div>
   </section>
 

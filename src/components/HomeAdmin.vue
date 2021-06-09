@@ -1,25 +1,21 @@
 <template>
 
   <section class="src-components-home-admin">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <img src="../assets/logo tutti pizza.png" class="img-fluid img-size" alt="TuttiPizza logo">
-        <br>
-        <br>
+    <div class="jumbotron">
+      <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh">
+        <img src="../assets/logo tutti pizza.png" class="img-size mb-5" alt="TuttiPizza logo" />
         <h4>ADMINISTRADOR</h4>
-        <br>
-        <router-link to="/estadoPedidos">
-          <a type="button" class="btn btn-red btn-block">VER PEDIDOS</a>
-        </router-link>
-        <br>       
-        <router-link to="/editarPizzas">
-          <a type="button" class="btn btn-red btn-block">EDITAR PIZZAS</a>
-        </router-link>
-        
+        <div class="d-flex flex-column">
+          <router-link to="/estadoPedidos">
+            <a type="button" class="btn btn-secondary btn-block m-3">VER PEDIDOS</a>
+          </router-link>
+          <router-link to="/editarPizzas">
+            <a type="button" class="btn btn-secondary btn-block">VER PIZZAS</a>
+          </router-link>
+        </div>
       </div>
     </div>
   </section>
-
 </template>
 
 <script lang="js">

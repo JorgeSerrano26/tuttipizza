@@ -19,19 +19,9 @@
         </thead>
         <tbody>
           <tr v-for="pizza in pizzas" :key="pizza.id">
-            <!-- <td
-              v-for="(col, index) in getCols"
-              :key="col"
-              style="color: #424242; vertical-align: middle"
-            > -->
             <th><font size="+1"> {{pizza.name}} </font></th>
             <td> {{pizza.description}} </td>
             <td> ${{pizza.prize}} </td>
-            
-              <!-- <span v-if="index < getCols.length - 1">
-                {{ pizza[col] }}
-              </span> -->
-              <!-- <span v-if="index === getCols.length - 1"> -->
                 <button
                   :disabled="pizza.cantidad === 0"
                   class="btn btn-red"
@@ -41,8 +31,6 @@
                 </button>
                 {{ pizza.cantidad }}
                 <button class="btn btn-red" @click="sumar(pizza)">+</button>
-              <!-- </span> -->
-            <!-- </td> -->
           </tr>
         </tbody>
       </table>

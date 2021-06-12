@@ -10,27 +10,28 @@
 
       <table class="table table-stripped" v-if="pizzas.length">
         <thead>
-          <tr>
-            <th
-              v-for="(col, index) in getCols"
-              :key="index"
-              style="background-color: #c0182f; color: white"
-            >
-              {{ col }}
-            </th>
+          <tr style="background-color: #c0182f; color: white">
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="pizza in pizzas" :key="pizza.id">
-            <td
+            <!-- <td
               v-for="(col, index) in getCols"
               :key="col"
               style="color: #424242; vertical-align: middle"
-            >
-              <span v-if="index < getCols.length - 1">
+            > -->
+            <th><font size="+1"> {{pizza.name}} </font></th>
+            <td> {{pizza.description}} </td>
+            <td> ${{pizza.prize}} </td>
+            
+              <!-- <span v-if="index < getCols.length - 1">
                 {{ pizza[col] }}
-              </span>
-              <span v-if="index === getCols.length - 1">
+              </span> -->
+              <!-- <span v-if="index === getCols.length - 1"> -->
                 <button
                   :disabled="pizza.cantidad === 0"
                   class="btn btn-red"
@@ -40,21 +41,21 @@
                 </button>
                 {{ pizza.cantidad }}
                 <button class="btn btn-red" @click="sumar(pizza)">+</button>
-              </span>
-            </td>
+              <!-- </span> -->
+            <!-- </td> -->
           </tr>
         </tbody>
       </table>
 
       <div class="container">
-        <h4 class="text-center m-4">Total: $ {{ getTotalPedido }}</h4>
+        <h4 class="text-center m-4">Total: $ {{ getTotalPedido() }}</h4>
       </div>
 
       <div class="form-group">
         <router-link to="/detallePedido">
-          <a type="button" class="btn btn-red btn-block">
+          <button type="button" class="btn btn-red btn-block" v-show="this.total != 0">
             CONTINUAR
-          </a>
+          </button>
         </router-link>
       </div>
 
@@ -80,8 +81,9 @@
     
     data () {
       return {
-        url: 'https://60aa8aef66f1d00017772f51.mockapi.io/pizzas/',
+        url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
+        total: 0
       }
     },
 
@@ -106,21 +108,19 @@
         if(pizza.cantidad > 0){
           pizza.cantidad--
         } 
+      },
+      getTotalPedido() {
+        let parcial = 0;
+        this.pizzas.forEach(pizza => {
+          parcial += (parseInt(pizza.prize) * (pizza.cantidad))
+        });
+        this.total = parcial
+        return this.total
       }
     },
 
     computed: {
-      getCols() {
-        return Object.keys(this.pizzas[0])
-      },
-
-      getTotalPedido() {
-        let total = 0;
-        this.pizzas.forEach(({ cantidad, Precio }) => {
-          total += (parseInt(Precio) * cantidad)
-        });
-        return total
-      }
+      
     },
 
     beforeMount() {

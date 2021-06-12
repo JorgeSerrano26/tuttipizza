@@ -40,7 +40,7 @@
     },
     data () {
       return {
-        url: 'https://60aa8aef66f1d00017772f51.mockapi.io/pedidos/',
+        url: 'http://localhost:5000/api/pizzas/',
         pedidos: []
       }
     },

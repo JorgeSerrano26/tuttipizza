@@ -116,7 +116,9 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" @click="send()" :disabled="formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
+        <router-link to="/confirmacionpedido">
+      <button type="submit" @click="send()" v-show="!formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
+        </router-link>
       </div>
       <div class="form-group">
           <router-link to="/home">
@@ -156,7 +158,6 @@
       send() {
         console.log({...this.formData})
         this.formData = this.getInitialData()
-        alert('Pedido generado correctamente')
         }
     },
     computed: {

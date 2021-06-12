@@ -2,17 +2,13 @@
 
   <section class="src-components-detalle-pedido">
     <div class="jumbotron">
-      <div class="container">
-        <div class="row ">
-          <div class="col-10">
-            <h2 class="title1 mt-5">Detalles del Pedido</h2> 
-          </div>
-          <div class="col-2 col-offset-2">
-            <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
-          </div>
+      <header class="py-4">
+        <div class="container d-flex flex-row justify-content-between align-items-center">
+          <h2 class="title1">Detalles del pedido</h2>
+          <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
-        <br>
-        <br>
+      </header>
+      <div class="container">
         <div class="row">
           <div class="card m-3" style="width: 30rem;">
             <div class="card-body">

@@ -2,17 +2,14 @@
 
   <section class="src-components-estado-pedido">
     <div class="jumbotron">
-      <div class="container">
-          <div class="row ">
-            <div class="col-10">
-              <h2 class="title1 mt-5">Estado del pedido</h2> 
-            </div>
-            <div class="col-2 col-offset-2">
-              <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
-            </div>
-          </div>
-        </div> 
-        <br>
+      <header class="py-4">
+        <div class="container d-flex flex-row justify-content-between align-items-center">
+          <h2 class="title1">Realizar pedido</h2>
+          <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
+        </div>
+      </header>
+
+    
         <h2>Tu pedido se encuentra</h2>
         <br>
         <h2 style="color: #C0182F">En preparación</h2>

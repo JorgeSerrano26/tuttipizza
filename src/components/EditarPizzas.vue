@@ -2,26 +2,22 @@
 
   <section class="src-components-editar-pizzas">
     <div class="jumbotron">
-     <div class="container">
-        <div class="row ">
-          <div class="col-10">
-            <h2 class="title1 mt-5">Editar Pizzas</h2> 
-          </div>
-          <div class="col-2 col-offset-2">
-            <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2 mt-2" alt="TuttiPizza logo">
-          </div>
+      <header class="py-4">
+        <div class="container d-flex flex-row justify-content-between align-items-center">
+          <h2 class="title1">Menú de pizzas</h2>
+          <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
-      </div> 
-      <br>
-      <table v-if="pizzas.length" class="table table-white">
+      </header>
+     
+      <table v-if="pizzas.length" class="table table-stripped">
         <thead>
           <tr>
-          <th v-for="(col,index) in getCols" :key="index">{{col}}</th>
+          <th v-for="(col,index) in getCols" :key="index" style="background-color: #c0182f; color: white">{{col}}</th>
           </tr>
         </thead>
         <tbody>
         <tr v-for="(pizza, index) in pizzas" :key="index">
-          <th v-for="(col, index) in getCols" :key="index">{{pizza[col]}}</th>
+          <td v-for="(col, index) in getCols" :key="index" style="color: #424242;">{{pizza[col]}}</td>
         </tr>
         </tbody>
       </table>

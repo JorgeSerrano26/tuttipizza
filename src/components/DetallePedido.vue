@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" @click="send()" :disabled="formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
+      <button type="submit" @click="send()" :disabled="formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
       </div>
       <div class="form-group">
           <router-link to="/home">

@@ -108,7 +108,13 @@
                 <br>
                 <div class="form-group">
                   <label for="importe">¿Con cuánto vas a pagar?</label>
-                  <input type="number" class="form-control" id="importe"  placeholder="Importe"> 
+                  <input type="number" class="form-control" id="importe"  placeholder="Importe" v-model="importe"> 
+                  <div class="form-group">
+                    <br>
+                    <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
+                    <br>
+                    <p v-show="this.importe > this.$store.state.total_order"> VUELTO: ${{ this.importe - this.$store.state.total_order }} </p>
+                  </div>
                 </div>
               </form>
             </div>
@@ -121,9 +127,14 @@
         </router-link>
       </div>
       <div class="form-group">
+          <router-link to="/realizarpedido">
+          <a type="button" class="btn btn-red btn-block">MODIFICAR PEDIDO</a>
+          </router-link>
+      </div>
+      <div class="form-group">
           <router-link to="/home">
           <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ PRINCIPAL</a>
-        </router-link>
+          </router-link>
       </div>
     </div>
   </section>
@@ -141,7 +152,8 @@
       return {
         formData: this.getInitialData(),
         formState: {},
-        minLength: 3
+        minLength: 3,
+        importe: 0
       }
     },
     methods: {

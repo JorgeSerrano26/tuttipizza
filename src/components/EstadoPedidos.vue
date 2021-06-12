@@ -4,7 +4,7 @@
     <div class="jumbotron">
       <header class="py-4">
         <div class="container d-flex flex-row justify-content-between align-items-center">
-          <h2 class="title1">Pedidos</h2>
+          <h2 class="title1">AMINISTRADOR - Pedidos</h2>
           <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
       </header>

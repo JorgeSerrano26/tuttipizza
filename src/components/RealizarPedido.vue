@@ -41,7 +41,7 @@
 
       <div class="form-group">
         <router-link to="/detallePedido">
-          <button type="button" class="btn btn-red btn-block" v-show="this.total != 0">
+          <button type="button" class="btn btn-red btn-block" v-show=" this.$store.state.total_order != 0">
             CONTINUAR
           </button>
         </router-link>
@@ -71,7 +71,6 @@
       return {
         url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
-        total: 0
       }
     },
 
@@ -102,8 +101,9 @@
         this.pizzas.forEach(pizza => {
           parcial += (parseInt(pizza.prize) * (pizza.cantidad))
         });
-        this.total = parcial
-        return this.total
+        console.log(parcial)
+        this.$store.state.total_order = parcial
+        return this.$store.state.total_order
       }
     },
 

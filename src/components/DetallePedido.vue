@@ -123,7 +123,7 @@
       </div>
       <div class="form-group">
         <router-link to="/confirmacionpedido">
-      <button type="submit" @click="send()" v-show="!formState.$invalid" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
+      <button type="submit" @click="send()" v-show="!formState.$invalid && this.importe > this.$store.state.total_order" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
         </router-link>
       </div>
       <div class="form-group">

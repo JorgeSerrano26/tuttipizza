@@ -101,8 +101,7 @@
         this.pizzas.forEach(pizza => {
           parcial += (parseInt(pizza.prize) * (pizza.cantidad))
         });
-        console.log(parcial)
-        this.$store.state.total_order = parcial
+        this.$store.dispatch('new_total', parcial)
         return this.$store.state.total_order
       }
     },

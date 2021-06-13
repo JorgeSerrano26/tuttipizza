@@ -16,12 +16,12 @@ export default new Vuex.Store({
     },
     actions : {
         new_total({commit}, parcial) {
-            commit('new_total', parcial)
+            commit('new_total_mutation', parcial)
         },
     },
     mutations : {
-        new_total(state, parcial) {
+        new_total_mutation(state, parcial) {
             state.total_order = parcial
-        }
+        },
     }
 })

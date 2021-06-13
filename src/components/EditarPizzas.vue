@@ -19,16 +19,32 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="pizza in pizzas" :key="pizza.id">
-            <th><font size="+1"> {{pizza.name}} </font></th>
-            <td> {{pizza.description}} </td>
-            <td> ${{pizza.prize}} </td>
+          <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
+            <td v-if="!pizza.editable"> 
+                <font size="+1"> {{pizza.name}} </font>
+            </td>
+            <td v-else>
+              <input type="text" v-model="pizza.name">
+            </td>
+            <td v-if="!pizza.editable"> 
+              {{ pizza.description }} 
+            </td>
+            <td v-else>
+              <input type="text" v-model="pizza.description" style="width: 100%">
+            </td>
+            <td v-if="!pizza.editable">
+               ${{ pizza.prize }} 
+            </td>
+            <td v-else> 
+              <input type="text"> 
+            </td>
             <button class="btn btn-red" @click="editar(pizza)" v-show="!pizza.editable">EDITAR</button>
             <button class="btn btn-red" @click="confirmar(pizza)" v-show="pizza.editable">CONFIRMAR</button>
           </tr>
         </tbody>
       </table>
       <br>
+      <button class="btn btn-red" :disabled="true" >AGREGAR PIZZA</button>
       <div class="form-group">
         <router-link to="/homeAdmin">
           <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
@@ -51,7 +67,8 @@
       return {
         url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
-        editable: true
+        editable: true,
+        // desc : this.pizza.descripcion
       }
     },
 

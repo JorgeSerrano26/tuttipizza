@@ -7,8 +7,9 @@ export default new Vuex.Store({
     state: {
         user: {
             name: "",
-            email: "",
             address: "",
+            address_number: "",
+            floor: "",
             payment_method: "Efectivo",
         },
         order: [],
@@ -20,6 +21,18 @@ export default new Vuex.Store({
         },
         savePizza({commit}, pizza) {
             commit('savePizzaMutation', pizza)
+        },
+        setName({commit}, name) {
+            commit('setNameMutation', name)
+        },
+        setAddress({commit}, address) {
+            commit('setAddressMutation', address)
+        },
+        setAddressNumber({commit}, address_number) {
+            commit('setAddressNumberMutation', address_number)
+        },
+        setFloor({commit}, floor) {
+            commit('setFloorMutation', floor)
         }
     },
     mutations : {
@@ -29,5 +42,17 @@ export default new Vuex.Store({
         savePizzaMutation(state, pizza) {
             state.order.push(pizza)
         },
+        setNameMutation(state, name) {
+            state.user.name = name
+        },
+        setAddressMutation(state, address) {
+            state.user.address = address
+        },
+        setAddressNumberMutation(state, address_number) {
+            state.user.address_number = address_number
+        },
+        setFloorMutation(state, floor) {
+            state.user.floor = floor
+        }
     }
 })

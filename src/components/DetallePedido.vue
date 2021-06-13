@@ -114,9 +114,10 @@
                     <p v-show="this.importe > this.$store.state.total_order"> VUELTO: ${{ this.importe - this.$store.state.total_order }} </p>
                     <br>
                     <p>DETALLE DEL PEDIDO:</p>
-                    <li v-for="pizza in printPizza" :key="pizza.id">
+                    <ul v-for="pizza in printPizza" :key="pizza.id">
                       {{ pizza.name }} x {{pizza.cantidad}}
-                    </li>
+                    </ul>
+                    <hr>
                     <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
                   </div>
                 </div>

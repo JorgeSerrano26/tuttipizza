@@ -18,10 +18,16 @@ export default new Vuex.Store({
         new_total({commit}, parcial) {
             commit('new_total_mutation', parcial)
         },
+        savePizza({commit}, pizza) {
+            commit('savePizzaMutation', pizza)
+        }
     },
     mutations : {
         new_total_mutation(state, parcial) {
             state.total_order = parcial
+        },
+        savePizzaMutation(state, pizza) {
+            state.order.push(pizza)
         },
     }
 })

@@ -41,7 +41,7 @@
 
       <div class="form-group">
         <router-link to="/detallePedido">
-          <button type="button" class="btn btn-red btn-block" v-show=" this.$store.state.total_order != 0">
+          <button @click="saveOrderDetails()" type="button" class="btn btn-red btn-block" v-show=" this.$store.state.total_order != 0">
             CONTINUAR
           </button>
         </router-link>
@@ -96,6 +96,7 @@
           pizza.cantidad--
         } 
       },
+
       getTotalPedido() {
         let parcial = 0;
         this.pizzas.forEach(pizza => {
@@ -103,7 +104,15 @@
         });
         this.$store.dispatch('new_total', parcial)
         return this.$store.state.total_order
+      },
+
+      saveOrderDetails() {
+        this.pizzas.forEach(pizza => {
+          this.$store.dispatch('savePizza', pizza)
+        });
+        console.log(this.$store.state.order)
       }
+
     },
 
     computed: {

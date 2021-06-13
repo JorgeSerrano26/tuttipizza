@@ -111,9 +111,14 @@
                   <input type="number" class="form-control" id="importe"  placeholder="Importe" v-model="importe"> 
                   <div class="form-group">
                     <br>
-                    <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
-                    <br>
                     <p v-show="this.importe > this.$store.state.total_order"> VUELTO: ${{ this.importe - this.$store.state.total_order }} </p>
+                    <br>
+                    <p>DETALLE DEL PEDIDO:</p>
+                    <ul v-for="pizza in printPizza" :key="pizza.id">
+                      {{ pizza.name }} x {{pizza.cantidad}}
+                    </ul>
+                    <hr>
+                    <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
                   </div>
                 </div>
               </form>
@@ -173,6 +178,9 @@
         }
     },
     computed: {
+      printPizza() {
+        return this.$store.state.order.filter(i => i.cantidad > 0)
+      }
     },
   }
 </script>

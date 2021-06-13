@@ -34,35 +34,35 @@
                 </validate>
                 <br>
                 <validate tag="div">
-                  <label for="street">Calle</label>
+                  <label for="address">Calle</label>
                   <input 
                     type="text" 
-                    name="street" 
-                    id="street" 
-                    v-model="formData.street"
+                    name="address" 
+                    id="address" 
+                    v-model="formData.address"
                     autocomplete="off" 
                     required
                     class="form-control" 
                     placeholder="Calle"
                     minlength="5">
-                  <field-messages name="street" show="$dirty">
+                  <field-messages name="address" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo Requerido</div>
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere como mínimo 5 caracteres</div>
                   </field-messages>
                 </validate>
                 <br>
                 <validate tag="div">                
-                  <label for="street_number">Altura</label>
+                  <label for="address_number">Altura</label>
                   <input 
                     type="number" 
-                    name="street_number" 
-                    id="street_number" 
-                    v-model="formData.street_number"
+                    name="address_number" 
+                    id="address_number" 
+                    v-model="formData.address_number"
                     autocomplete="off" 
                     required
                     class="form-control" 
                     placeholder="Altura">
-                  <field-messages name="street_number" show="$dirty">
+                  <field-messages name="address_number" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo Requerido</div>
                   </field-messages>
                 </validate>
@@ -165,22 +165,25 @@
       getInitialData() {
         return {
           name: '',
-          email: '',
-          street: '',
-          street_number: '',
+          address: '',
+          address_number: '',
           floor: '',
           payment_method: 'Efectivo'
           }
         },
       send() {
-        console.log({...this.formData})
+        this.$store.dispatch('setName', this.formData.name)
+        this.$store.dispatch('setAddress', this.formData.address)
+        this.$store.dispatch('setAddressNumber', this.formData.address_number)
+        this.$store.dispatch('setFloor', this.formData.floor)
         this.formData = this.getInitialData()
         }
     },
     computed: {
       printPizza() {
         return this.$store.state.order.filter(i => i.cantidad > 0)
-      }
+      },
+      
     },
   }
 </script>

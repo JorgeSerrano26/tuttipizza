@@ -78,7 +78,6 @@
       getPizzasAxios() {
         this.axios(this.url)
         .then(({ data }) => {
-          console.log('data', data)
           this.pizzas = data.map((pizza) => ({
             ...pizza,
             cantidad: 0,
@@ -110,7 +109,6 @@
         this.pizzas.forEach(pizza => {
           this.$store.dispatch('savePizza', pizza)
         });
-        console.log(this.$store.state.order)
       }
 
     },

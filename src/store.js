@@ -13,6 +13,7 @@ export default new Vuex.Store({
             payment_method: "Efectivo",
         },
         order: [],
+        orderId: "",
         total_order: 0,
     },
     actions : {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
         },
         setFloor({commit}, floor) {
             commit('setFloorMutation', floor)
+        },
+        setOrderId({commit}, orderId) {
+            commit('setOrderIdMutation', orderId)
         }
     },
     mutations : {
@@ -53,6 +57,9 @@ export default new Vuex.Store({
         },
         setFloorMutation(state, floor) {
             state.user.floor = floor
-        }
+        },
+        setOrderIdMutation(state, orderId) {
+            state.orderId = orderId
+        },
     }
 })

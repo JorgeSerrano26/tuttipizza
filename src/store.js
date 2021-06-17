@@ -37,6 +37,9 @@ export default new Vuex.Store({
         },
         setOrderId({commit}, orderId) {
             commit('setOrderIdMutation', orderId)
+        },
+        resetOrderId({commit}) {
+            commit('resetOrderIdMutation')
         }
     },
     mutations : {
@@ -60,6 +63,6 @@ export default new Vuex.Store({
         },
         setOrderIdMutation(state, orderId) {
             state.orderId = orderId
-        }
+        },
     }
 })

@@ -10,9 +10,9 @@
       </header>
 
     
-        <h2>Tu pedido se encuentra</h2>
-        <br>
-        <h2 style="color: #C0182F">En preparación</h2>
+        <h2>Pedido N° {{this.$store.state.orderId}} </h2>
+        <h2 v-if="validOrder()" style="color: #C0182F">Su pedido se encuentra en [ESTADO]</h2>
+        <h2 v-else style="color: #C0182F">Lo sentimos pero su pedido no ha podido ser encontrado</h2>
         <br>
       <div class="form-group">
         <router-link to="/home">
@@ -34,14 +34,20 @@
     },
     data () {
       return {
-
+        url: 'http://localhost:5000/api/orders/',
+        orders: []
       }
     },
     methods: {
-
+      getOrdersAxios() {
+        this.axios.get(this.url).then(response => (this.orders = response))
+      },
+      validOrder() {
+        return true
+      }
     },
-    computed: {
-
+    beforeMount() {
+      this.getOrdersAxios
     }
 }
 

@@ -44,7 +44,7 @@
         return this.orders.some(order => order._id == this.$store.state.orderId)
       },
       reserOrderId() {
-        this.$store.dispatch('setOrderIdMutation', "")
+        this.$store.dispatch('setOrderId', "")
       }
     },
     beforeMount() {

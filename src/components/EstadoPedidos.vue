@@ -8,18 +8,32 @@
           <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
       </header>
-      <table v-if="pedidos.length" class="table table-stripped">
+
+      <table class="table table-stripped" v-if="orders.length">
         <thead>
-          <tr>
-          <th v-for="(col,index) in getCols" :key="index" style="background-color: #c0182f; color: white">{{col}}</th>
+          <tr style="background-color: #c0182f; color: white">
+            <th>N° de Pedido</th>
+            <th>Usuario</th>
+            <th>Dirección</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-        <tr v-for="(pedido, index) in pedidos" :key="index">
-          <td v-for="(col, index) in getCols" :key="index" style="color: #424242;">{{pedido[col]}}</td>
-        </tr>
+          <tr v-for="order in orders" :key="order.id">
+            <th><font size="+1"> {{order._id}} </font></th>
+            <td> {{order.user.name }} </td>
+            <td> {{order.user.address}} {{order.user.address_number}} </td>
+            <td> {{order.user.floor}} </td>
+            <td> {{order.total_order}} </td>
+            <td> {{order.estado}} </td>
+            <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
+          </tr>
         </tbody>
       </table>
+      
       <div class="form-group">
         <router-link to="/homeAdmin">
           <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
@@ -38,32 +52,36 @@
     mounted () {
 
     },
+    
     data () {
       return {
-        url: 'http://localhost:5000/api/pizzas/',
-        pedidos: []
+        url: 'http://localhost:5000/api/orders/',
+        orders: [],
       }
     },
 
     methods: {
-      getPedidosAxios() {
+      getOrdersAxios() {
         this.axios(this.url)
-        .then(respuesta => {
-          console.log(respuesta.data)
-          this.pedidos = respuesta.data
+        .then(({ data }) => {
+          this.orders = data.map((order) => ({
+            ...order
+          }))
         })
         .catch(error => console.error(error))
+      },
+      
+      moveOrder(order) {
+        console.log("Acá se movería el estado", order)
       }
     },
 
     computed: {
-      getCols() {
-        return Object.keys(this.pedidos[0])
-      }
+      
     },
 
     beforeMount() {
-      this.getPedidosAxios()
+      this.getOrdersAxios()
     }
 }
 

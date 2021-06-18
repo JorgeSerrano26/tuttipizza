@@ -38,8 +38,11 @@
             <td v-else> 
               <input type="text" v-model="pizza.prize" class="form-control" style="text-align: center;"> 
             </td>
-            <button class="btn btn-red" @click="editar(pizza)" v-show="!pizza.editable">EDITAR</button>
-            <button class="btn btn-red" @click="confirmar(pizza)" v-show="pizza.editable">CONFIRMAR</button>
+            <div class="d-flex flex-row">
+              <button class="btn btn-red p-2" @click="editar(pizza)" v-show="!pizza.editable">EDITAR</button>
+              <button class="btn btn-red p-2" @click="confirmar(pizza)" v-show="pizza.editable">CONFIRMAR</button>
+              <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
+            </div>
           </tr>
         </tbody>
         
@@ -47,6 +50,9 @@
        
       
       <br>
+
+      
+
       
         <vue-form :state="formState" @submit.prevent="postPizzasAxios()"> 
           <validate tag="div"  v-show="showAddField">
@@ -70,7 +76,7 @@
 
           <validate tag="div" v-show="showAddField">
             <label for="precioPizza">Precio</label>
-            <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control" v-model.number="formData.precioPizza" :precioMin="precioMin" :max="precioMax" required>
+            <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control" v-model.number="formData.precioPizza" :min="precioMin" :max="precioMax" required>
             <field-messages name="precioPizza" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
               <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
@@ -81,11 +87,12 @@
           <button class="btn btn-success mt-3 ml-3 mb-3" type="submit" :disabled="formState.$invalid" v-show="showAddField">AÑADIR PIZZA</button>
           
         </vue-form>
-        <button class="btn btn-red" @click="showAddField = false" v-show="showAddField">Cancelar</button>
+        <button class="btn btn-secondary" @click="showAddField = false" v-show="showAddField">Cancelar</button>
       </div>
       <div v-if="!showAddField">
         <button class="btn btn-red" @click="showAddField = true" >AGREGAR PIZZA</button>
       </div>
+
       
       <div class="form-group">
         <router-link to="/homeAdmin">
@@ -140,25 +147,38 @@
           prize: this.formData.precioPizza,
           description: this.formData.descripcionPizza
         }
-        
         try {
           let respuesta = await this.axios.post(this.url, pizza, {'content-type':'application/json'})
-
           let p = respuesta.data
           console.log(p)
-
           this.pizzas.push(p)
           this.formData = this.getInicialData()
-          
         }
         catch(error) {
           console.log(error)
         }
       },
 
-      editar(pizza) {
+
+       editar(pizza) {
         console.log(pizza)
         return pizza.editable = true
+      },
+
+       async borrar(id) {
+        try {
+          let respuesta = await this.axios.delete(this.url + id)
+          let piz = respuesta.data 
+          console.log(piz)
+          let index = this.pizzas.findIndex(pizza => pizza.id == id)
+          this.pizzas.splice(index,1)
+          alert(`La pizza se elimino correctamente`)
+        }
+        catch(error) {
+          console.log(error)
+        }
+
+        alert(`La pizza se elimino correctamente`)
       },
 
       confirmar(pizza) {

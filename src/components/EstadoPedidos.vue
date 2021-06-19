@@ -28,7 +28,7 @@
             <td> {{order.user.address}} {{order.user.address_number}} </td>
             <td> {{order.user.floor}} </td>
             <td> ${{order.payment.total_order}} </td>
-            <td> {{order.estado}} </td>
+            <td> {{order.state}} </td>
             <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
           </tr>
         </tbody>
@@ -45,6 +45,8 @@
 </template>
 
 <script lang="js">
+
+  // import axios from 'axios';
 
   export default  {
     name: 'src-components-estado-pedidos',
@@ -72,7 +74,13 @@
       },
       
       moveOrder(order) {
-        console.log("Acá se movería el estado", order)
+        if (order.state != "Archivado") {
+          const newIndex = (this.$store.state.state.indexOf(order.state))+1
+          const newState = this.$store.state.state[newIndex]
+          console.log(newState)
+          this.axios.patch(`${this.url}${order._id}`, {state: newState})
+          console.log(newIndex, newState)
+        }
       }
     },
 

@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order in orders" :key="order.id">
+          <tr v-for="order in activeOrders()" :key="order._id">
             <th><font size="+1"> {{order._id}} </font></th>
             <td> {{order.user.name }} </td>
             <td> {{order.user.address}} {{order.user.address_number}} </td>
@@ -30,6 +30,28 @@
             <td> ${{order.payment.total_order}} </td>
             <td> {{order.state}} </td>
             <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
+          </tr>
+        </tbody>
+      </table>
+      <h3 class="title1">Historial de pedidos</h3>
+      <table class="table table-stripped" v-if="orders.length">
+        <thead>
+          <tr style="background-color: #c0182f; color: white">
+            <th>N° de Pedido</th>
+            <th>Usuario</th>
+            <th>Dirección</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="order in historyOrders()" :key="order._id">
+            <th><font size="+1"> {{order._id}} </font></th>
+            <td> {{order.user.name }} </td>
+            <td> {{order.user.address}} {{order.user.address_number}} </td>
+            <td> {{order.user.floor}} </td>
+            <td> ${{order.payment.total_order}} </td>
           </tr>
         </tbody>
       </table>
@@ -81,7 +103,16 @@
           this.axios.patch(`${this.url}${order._id}`, {state: newState})
           console.log(newIndex, newState)
         }
-      }
+      },
+
+      activeOrders() {
+        return this.orders.filter(i => i.state != 'Archivado')
+      },
+
+      historyOrders() {
+        return this.orders.filter(i => i.state == 'Archivado')
+      },
+
     },
 
     computed: {

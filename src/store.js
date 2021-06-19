@@ -15,7 +15,8 @@ export default new Vuex.Store({
         orderId: "",
         total_order: 0,
         payment_method: "Efectivo",
-        pizzas: []
+        pizzas: [],
+        state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"]
     },
     actions : {
         new_total({commit}, parcial) {

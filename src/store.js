@@ -15,6 +15,7 @@ export default new Vuex.Store({
         orderId: "",
         total_order: 0,
         payment_method: "Efectivo",
+        pizzas: []
     },
     actions : {
         new_total({commit}, parcial) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
         },
         setOrderId({commit}, orderId) {
             commit('setOrderIdMutation', orderId)
+        },
+        resetValues({commit}) {
+            commit('resetValuesMutation')
         }
     },
     mutations : {
@@ -60,6 +64,11 @@ export default new Vuex.Store({
         },
         setOrderIdMutation(state, orderId) {
             state.orderId = orderId
+        },
+        resetValuesMutation(state) {
+            state.order = []
+            state.total_order = 0
+            state.pizzas = []
         }
     }
 })

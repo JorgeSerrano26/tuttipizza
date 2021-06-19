@@ -187,8 +187,8 @@
         this.$store.dispatch('setAddressNumber', this.formData.address_number)
         this.$store.dispatch('setFloor', this.formData.floor)
         this.saveOrderDetails()
-        console.log('user: ', this.$store.state.user, 'order: ', this.$store.state.order, 'payment_method: ', this.$store.state.payment_method)
-        const order = {user: this.$store.state.user, order: this.$store.state.order, paymentMethod: this.$store.state.payment_method}
+        const order = {user: this.$store.state.user, order: this.$store.state.order, payment: {payment_method: this.$store.state.payment_method, total_order: this.$store.state.total_order}}
+        console.log(order)
         axios.post(this.url, order)
         this.formData = this.getInitialData()
         this.$store.dispatch('resetValues')

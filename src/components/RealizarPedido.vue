@@ -9,7 +9,6 @@
       </header>
 
       <table class="table table-stripped" v-if="this.$store.state.pizzas.length">
-        {{this.$store.state.pizzas.length}}
         <thead>
           <tr style="background-color: #c0182f; color: white">
             <th>Nombre</th>

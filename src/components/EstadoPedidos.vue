@@ -27,7 +27,7 @@
             <td> {{order.user.name }} </td>
             <td> {{order.user.address}} {{order.user.address_number}} </td>
             <td> {{order.user.floor}} </td>
-            <td> {{order.total_order}} </td>
+            <td> ${{order.payment.total_order}} </td>
             <td> {{order.estado}} </td>
             <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
           </tr>

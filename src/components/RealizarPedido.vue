@@ -23,13 +23,13 @@
             <td> {{pizza.description}} </td>
             <td> ${{pizza.prize}} </td>
                 <button
-                  :disabled="pizza.cantidad === 0"
+                  :disabled="pizza.count === 0"
                   class="btn btn-red"
                   @click="restar(pizza)"
                 >
                   -
                 </button>
-                {{ pizza.cantidad }}
+                {{ pizza.count }}
                 <button class="btn btn-red" @click="sumar(pizza)">+</button>
           </tr>
         </tbody>
@@ -80,26 +80,26 @@
         .then(({ data }) => {
           this.pizzas = data.map((pizza) => ({
             ...pizza,
-            cantidad: 0,
+            count: 0,
           }))
         })
         .catch(error => console.error(error))
       },
 
       sumar(pizza) {
-        pizza.cantidad++
+        pizza.count++
       },
 
       restar(pizza) {
-        if(pizza.cantidad > 0){
-          pizza.cantidad--
+        if(pizza.count > 0){
+          pizza.count--
         } 
       },
 
       getTotalPedido() {
         let parcial = 0;
         this.pizzas.forEach(pizza => {
-          parcial += (parseInt(pizza.prize) * (pizza.cantidad))
+          parcial += (parseInt(pizza.prize) * (pizza.count))
         });
         this.$store.dispatch('new_total', parcial)
         return this.$store.state.total_order
@@ -107,7 +107,9 @@
 
       saveOrderDetails() {
         this.pizzas.forEach(pizza => {
-          this.$store.dispatch('savePizza', pizza)
+          if (pizza.count > 0) {
+            this.$store.dispatch('savePizza', pizza)
+          }
         });
       }
 

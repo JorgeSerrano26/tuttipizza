@@ -176,6 +176,7 @@
         this.$store.dispatch('setAddress', this.formData.address)
         this.$store.dispatch('setAddressNumber', this.formData.address_number)
         this.$store.dispatch('setFloor', this.formData.floor)
+        console.log('user: ', this.$store.state.user, 'order: ', this.$store.state.order, 'payment_method: ', this.$store.state.payment_method)
         this.formData = this.getInitialData()
         }
     },

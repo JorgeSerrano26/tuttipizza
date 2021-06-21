@@ -10,7 +10,7 @@
       </header>
 
 
-     <!--ACA -->
+     
       <table v-if="pizzas.length" class="table table-stripped">
         <thead>
           <tr style="background-color: #c0182f; color: white">
@@ -22,36 +22,61 @@
         </thead>
         <tbody>
           <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-            <!-- O ACA -->
-            <td v-if="!pizza.editable"> 
-                <font size="+1"> {{pizza.name}} </font>
-            </td>
-            <td v-else>
-              <input type="text" id="name" autocomplete="off" class="form-control" v-model="pizza.name" style="text-align: center;">
-            </td>
-            <td v-if="!pizza.editable"> 
-              {{ pizza.description }} 
-            </td>
-            <td v-else>
-              <input type="text" v-model="pizza.description" class="form-control" style="text-align: center; width: 100% ">
-            </td>
-            <td v-if="!pizza.editable" >
-               ${{ pizza.prize }} 
-            </td>
-            <td v-else> 
-              <input type="text" v-model="pizza.prize" class="form-control" style="text-align: center;"> 
-            </td>
-            <div class="d-flex flex-row">
-              <button class="btn btn-red p-2" @click="editar(pizza._id)" v-show="!pizza.editable">EDITAR</button>
-              <button class="btn btn-red p-2" @click="confirmar(pizza)" v-show="pizza.editable">CONFIRMAR</button>
-              <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
-            </div>
+          <!-- EDIT -->
+            <!-- <vue-form :state="formState2" @submit.prevent="editar"> -->
+              <td v-if="!pizza.editable">
+                <font size="+1"> {{ pizza.name }} </font>
+              </td>
+              <td v-else>
+                <validate tag="div">
+                  <input type="text" id="nombrePizza" name="nombrePizza" autocomplete="off" class="form-control" v-model.trim="pizzaAEditar.nombrePizza" :minlength="nombrePizzaMinLength" required>
+                  <field-messages name="nombrePizza" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
+                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ nombrePizzaMinLength }} caracteres</div>
+                  </field-messages>
+                </validate>
+              </td>
+              <td v-if="!pizza.editable"> 
+                {{ pizza.description }} 
+              </td>
+              <td v-else>
+                <validate tag="div">
+                  <input type="text" id="descripcionPizza" name="descripcionPizza" autocomplete="off" class="form-control" v-model.trim="pizzaAEditar.descripcionPizza" required :minlength="descripcionPizzanMinLength">
+                  <field-messages name="descripcionPizza" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div> 
+                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ descripcionPizzanMinLength }} caracteres</div>
+                  </field-messages>
+                </validate>
+              </td>
+              <td v-if="!pizza.editable" >
+                ${{ pizza.prize }} 
+              </td>
+              <td v-else> 
+                <validate tag="div">
+                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control" v-model.number="pizzaAEditar.precioPizza" :min="precioMin" :max="precioMax" required>
+                  <field-messages name="precioPizza" show="$dirty">
+                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
+                    <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
+                    <div slot="max" class="alert alert-danger mt-1">El precio no puede ser mayor de {{ precioMax }} </div>
+                  </field-messages>
+                </validate> 
+              </td>
+              <div class="d-flex flex-row">
+                <button class="btn btn-red p-2" @click="mostrarFormulario(pizza)" v-show="!pizza.editable">EDITAR</button>
+                <button class="btn btn-red p-2" type="submit" @click="editar(pizza._id)" v-show="pizza.editable">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                  </svg>
+                </button>
+                <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
+              </div>
+            <!-- </vue-form> -->
           </tr>
         </tbody>
         
         </table>
        
-
+          <!-- ADD-->
       <br>
         <vue-form :state="formState" @submit.prevent="postPizzasAxios()"> 
           <validate tag="div"  v-show="showAddField">
@@ -122,7 +147,10 @@
         precioMin: 0,
         precioMax: 50000,
         formData: this.getInitialData(),
-        formState: {}
+        formData2: this.getInitialData(),
+        formState: {},
+        formState2: {},
+        pizzaAEditar: {}
       }
     },
 
@@ -149,9 +177,9 @@
         try {
           let respuesta = await this.axios.post(this.url, pizza, {'content-type':'application/json'})
           let p = respuesta.data
-          console.log(p)
           this.pizzas.push(p)
-          this.formData = this.getInicialData()
+          this.formData = this.getInitialData()
+          this.formState._reset();
         }
         catch(error) {
           console.log(error)
@@ -159,25 +187,24 @@
       },
 
 
-       editar(id) {
-         console.log(id)
-        // let pizza = {
-        //   name: this.formData.nombrePizza,
-        //   prize: this.formData.precioPizza,
-        //   description: this.formData.descripcionPizza
-        // }
-        // try {
-        //   let respuesta = await this.axios.put(this.url+id, pizza, {'content-type':'application/json'})
-        //   let pizzita = respuesta.data
-        //   let index = this.usuarios.findIndex(pizza => pizza._id == pizzita.id)
-        //   this.pizzas.splice(index,1,pizza)
+       async editar(id) {
+        let pizza = {
+          name: this.pizzaAEditar.nombrePizza,
+          prize: this.pizzaAEditar.precioPizza,
+          description: this.pizzaAEditar.descripcionPizza
+        }
+        try {
+          let respuesta = await this.axios.patch(this.url+id, pizza, {'content-type':'application/json'})
+          let pizzita = respuesta.data
+          let index = this.usuarios.findIndex(pizza => pizza._id == pizzita.id)
+          this.pizzas.splice(index,1,pizza)
 
-        //   this.formData = this.getInicialData()
-        //   alert(`La pizza ${p.nombre} se actualizó correctamente`)
-        // }
-        // catch(error) {
-        //   console.log(error)
-        // }
+          this.formData = this.getInicialData()
+          alert(`La pizza ${pizzita.nombre} se actualizó correctamente`)
+        }
+        catch(error) {
+          console.log(error)
+        }
       },
 
        async borrar(id) {
@@ -194,9 +221,13 @@
         }
       },
 
-      confirmar(pizza) {
-        console.log(pizza)
-        return pizza.editable = false
+      mostrarFormulario(pizza) {
+        this.pizzaAEditar = {
+          nombrePizza: pizza.name,
+          descripcionPizza: pizza.description,
+          precioPizza: pizza.prize
+        };
+        pizza.editable = true
       }, 
 
       getInitialData() {
@@ -206,9 +237,6 @@
           precioPizza: ''
         }
       }
-
-
-
     },      
     computed: {      
     },

@@ -8,7 +8,9 @@
           <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
       </header>
-     
+
+
+     <!--ACA -->
       <table v-if="pizzas.length" class="table table-stripped">
         <thead>
           <tr style="background-color: #c0182f; color: white">
@@ -20,6 +22,7 @@
         </thead>
         <tbody>
           <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
+            <!-- O ACA -->
             <td v-if="!pizza.editable"> 
                 <font size="+1"> {{pizza.name}} </font>
             </td>
@@ -39,7 +42,7 @@
               <input type="text" v-model="pizza.prize" class="form-control" style="text-align: center;"> 
             </td>
             <div class="d-flex flex-row">
-              <button class="btn btn-red p-2" @click="editar(pizza)" v-show="!pizza.editable">EDITAR</button>
+              <button class="btn btn-red p-2" @click="editar(pizza._id)" v-show="!pizza.editable">EDITAR</button>
               <button class="btn btn-red p-2" @click="confirmar(pizza)" v-show="pizza.editable">CONFIRMAR</button>
               <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
             </div>
@@ -48,12 +51,8 @@
         
         </table>
        
-      
+
       <br>
-
-      
-
-      
         <vue-form :state="formState" @submit.prevent="postPizzasAxios()"> 
           <validate tag="div"  v-show="showAddField">
             <h5>Agregar nueva pizza</h5>
@@ -160,25 +159,39 @@
       },
 
 
-       editar(pizza) {
-        console.log(pizza)
-        return pizza.editable = true
+       editar(id) {
+         console.log(id)
+        // let pizza = {
+        //   name: this.formData.nombrePizza,
+        //   prize: this.formData.precioPizza,
+        //   description: this.formData.descripcionPizza
+        // }
+        // try {
+        //   let respuesta = await this.axios.put(this.url+id, pizza, {'content-type':'application/json'})
+        //   let pizzita = respuesta.data
+        //   let index = this.usuarios.findIndex(pizza => pizza._id == pizzita.id)
+        //   this.pizzas.splice(index,1,pizza)
+
+        //   this.formData = this.getInicialData()
+        //   alert(`La pizza ${p.nombre} se actualizó correctamente`)
+        // }
+        // catch(error) {
+        //   console.log(error)
+        // }
       },
 
        async borrar(id) {
         try {
-          let respuesta = await this.axios.delete(this.url + id)
+          let respuesta = await this.axios.delete(this.url+id)
           let piz = respuesta.data 
           console.log(piz)
-          let index = this.pizzas.findIndex(pizza => pizza.id == id)
+          let index = this.pizzas.findIndex(pizza => pizza._id == id)
           this.pizzas.splice(index,1)
           alert(`La pizza se elimino correctamente`)
         }
         catch(error) {
           console.log(error)
         }
-
-        alert(`La pizza se elimino correctamente`)
       },
 
       confirmar(pizza) {

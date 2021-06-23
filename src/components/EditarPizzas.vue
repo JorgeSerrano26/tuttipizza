@@ -10,78 +10,52 @@
       </header>
 
 
-     
-      <table v-if="pizzas.length" class="table table-stripped">
-        <thead>
-          <tr style="background-color: #c0182f; color: white">
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Precio</th>
-            <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-          <!-- EDIT -->
-            <!-- <vue-form :state="formState2" @submit.prevent="editar"> -->
-              <td v-if="!pizza.editable">
-                <font size="+1"> {{ pizza.name }} </font>
-              </td>
-              <td v-else>
-                <validate tag="div">
-                  <input type="text" id="nombrePizza" name="nombrePizza" autocomplete="off" class="form-control" v-model.trim="pizzaAEditar.nombrePizza" :minlength="nombrePizzaMinLength" required>
-                  <field-messages name="nombrePizza" show="$dirty">
-                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
-                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ nombrePizzaMinLength }} caracteres</div>
-                  </field-messages>
-                </validate>
-              </td>
-              <td v-if="!pizza.editable"> 
-                {{ pizza.description }} 
-              </td>
-              <td v-else>
-                <validate tag="div">
-                  <input type="text" id="descripcionPizza" name="descripcionPizza" autocomplete="off" class="form-control" v-model.trim="pizzaAEditar.descripcionPizza" required :minlength="descripcionPizzanMinLength">
-                  <field-messages name="descripcionPizza" show="$dirty">
-                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div> 
-                    <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ descripcionPizzanMinLength }} caracteres</div>
-                  </field-messages>
-                </validate>
-              </td>
-              <td v-if="!pizza.editable" >
-                ${{ pizza.prize }} 
-              </td>
-              <td v-else> 
-                <validate tag="div">
-                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control" v-model.number="pizzaAEditar.precioPizza" :min="precioMin" :max="precioMax" required>
-                  <field-messages name="precioPizza" show="$dirty">
-                    <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
-                    <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
-                    <div slot="max" class="alert alert-danger mt-1">El precio no puede ser mayor de {{ precioMax }} </div>
-                  </field-messages>
-                </validate> 
-              </td>
-              <div class="d-flex flex-row">
-                <button class="btn btn-red p-2" @click="mostrarFormulario(pizza)" v-show="!pizza.editable">EDITAR</button>
-                <button class="btn btn-red p-2" type="submit" @click="editar(pizza._id)" v-show="pizza.editable">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                  </svg>
-                </button>
-                <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
-              </div>
-            <!-- </vue-form> -->
-          </tr>
-        </tbody>
-        
-        </table>
-       
-          <!-- ADD-->
-      <br>
-        <vue-form :state="formState" @submit.prevent="postPizzasAxios()"> 
+    <table v-if="pizzas.length" class="table table-stripped">
+      <thead>
+        <tr style="background-color: #c0182f; color: white">
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
+          <ModalEditarPizzas v-show="isModalVisible" @close="closeModal" :pizzaToEdit="pizza" />
+            <td>
+                {{ pizza.name }}
+            </td>
+            <td>
+              {{ pizza.description }}
+            </td>
+            <td>
+              ${{ pizza.prize }}
+            </td>
+            <div class="d-flex flex-row">
+              <!-- <button type="button" class="btn btn-red"  @click="showModal()">EDITAR</button> -->
+              <!-- <button class="btn btn-red p-2" @click="mostrarFormulario(pizza)" v-show="!pizza.editable">EDITAR</button> -->
+
+              <!-- EDIT -->
+              <button type="button" class="btn btn-red"  @click="showModal">EDITAR</button>
+              
+
+              <!-- DELETE  -->
+              <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
+            </div>
+        </tr>
+      </tbody>
+    </table>
+
+    <ModalAgregarPizza v-show="isAgregarModalVisible" @close="closeAgregarModal" :pizzaList="pizzas" />
+
+    <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
+
+    <!-- ADD-->
+      <!-- <br>
+        <vue-form :state="formState" @submit.prevent="postPizzasAxios()">
           <validate tag="div"  v-show="showAddField">
             <h5>Agregar nueva pizza</h5>
-            <label for="nombrePizza" >Nombre</label>
+            <label for="nombrePizza">Nombre</label>
             <input type="text" id="nombrePizza" name="nombrePizza" autocomplete="off" class="form-control" v-model.trim="formData.nombrePizza" :minlength="nombrePizzaMinLength" required>
             <field-messages name="nombrePizza" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
@@ -93,7 +67,7 @@
             <label for="descripcionPizza">Descripcion</label>
             <input type="text" id="descripcionPizza" name="descripcionPizza" autocomplete="off" class="form-control" v-model.trim="formData.descripcionPizza" required :minlength="descripcionPizzanMinLength">
             <field-messages name="descripcionPizza" show="$dirty">
-              <div slot="required" class="alert alert-danger mt-1">Campo requerido</div> 
+              <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
               <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ descripcionPizzanMinLength }} caracteres</div>
             </field-messages>
           </validate>
@@ -108,30 +82,45 @@
             </field-messages>
           </validate>
 
-          <button class="btn btn-success mt-3 ml-3 mb-3" type="submit" :disabled="formState.$invalid" v-show="showAddField">AÑADIR PIZZA</button>
-          
-        </vue-form>
-        <button class="btn btn-secondary" @click="showAddField = false" v-show="showAddField">Cancelar</button>
-      </div>
-      <div v-if="!showAddField">
-        <button class="btn btn-red" @click="showAddField = true" >AGREGAR PIZZA</button>
-      </div>
 
-      
+
+          <button class="btn btn-success mt-3 ml-3 mb-3" type="submit" :disabled="formState.$invalid" v-show="showAddField">AÑADIR PIZZA</button>
+
+        </vue-form> -->
+
+        <!-- <button button class="btn btn-red" @click="showAddField = true" >AGREGAR PIZZA</button> -->
+
+
+        <!-- <button class="btn btn-secondary" @click="showAddField = false" v-show="showAddField">Cancelar</button>
+      </div> -->
+
+      <!-- <div v-if="!showAddField">
+            <button class="btn btn-red" @click="showAddField = true">AGREGAR PIZZA</button>
+          </div> -->  
+
+
       <div class="form-group">
         <router-link to="/homeAdmin">
           <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
         </router-link>
-      </div>
-    
-  </section>
+     </div>
 
+   </div>
+  </section>
 </template>
 
 <script lang="js">
 
+  import ModalEditarPizzas from './ModalEditarPizzas';
+  import ModalAgregarPizza from './ModalAgregarPizza';
+
+
   export default  {
     name: 'src-components-editar-pizzas',
+    components: {
+      ModalEditarPizzas,
+      ModalAgregarPizza
+    },
     props: [],
     mounted () {
 
@@ -150,7 +139,9 @@
         formData2: this.getInitialData(),
         formState: {},
         formState2: {},
-        pizzaAEditar: {}
+        pizzaAEditar: {},
+        isModalVisible: false,
+        isAgregarModalVisible: false
       }
     },
 
@@ -168,23 +159,23 @@
         .catch(error => console.error(error))
       },
 
-     async postPizzasAxios() {
-        let pizza = {
-          name: this.formData.nombrePizza,
-          prize: this.formData.precioPizza,
-          description: this.formData.descripcionPizza
-        }
-        try {
-          let respuesta = await this.axios.post(this.url, pizza, {'content-type':'application/json'})
-          let p = respuesta.data
-          this.pizzas.push(p)
-          this.formData = this.getInitialData()
-          this.formState._reset();
-        }
-        catch(error) {
-          console.log(error)
-        }
-      },
+    //  async postPizzasAxios() {
+    //     let pizza = {
+    //       name: this.formData.nombrePizza,
+    //       prize: this.formData.precioPizza,
+    //       description: this.formData.descripcionPizza
+    //     }
+    //     try {
+    //       let respuesta = await this.axios.post(this.url, pizza, {'content-type':'application/json'})
+    //       let p = respuesta.data
+    //       this.pizzas.push(p)
+    //       this.formData = this.getInitialData()
+    //       this.formState._reset();
+    //     }
+    //     catch(error) {
+    //       console.log(error)
+    //     }
+    //   },
 
 
        async editar(id) {
@@ -210,7 +201,7 @@
        async borrar(id) {
         try {
           let respuesta = await this.axios.delete(this.url+id)
-          let piz = respuesta.data 
+          let piz = respuesta.data
           console.log(piz)
           let index = this.pizzas.findIndex(pizza => pizza._id == id)
           this.pizzas.splice(index,1)
@@ -221,14 +212,14 @@
         }
       },
 
-      mostrarFormulario(pizza) {
-        this.pizzaAEditar = {
-          nombrePizza: pizza.name,
-          descripcionPizza: pizza.description,
-          precioPizza: pizza.prize
-        };
-        pizza.editable = true
-      }, 
+      // mostrarFormulario(pizza) {
+      //   this.pizzaAEditar = {
+      //     nombrePizza: pizza.name,
+      //     descripcionPizza: pizza.description,
+      //     precioPizza: pizza.prize
+      //   };
+      //   pizza.editable = true
+      // },
 
       getInitialData() {
         return {
@@ -236,9 +227,25 @@
           descripcionPizza: '',
           precioPizza: ''
         }
+      },
+
+      showModal() {
+        this.isModalVisible = true;
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
+
+      showAgregarModal() {
+        this.isAgregarModalVisible = true;
+      },
+      closeAgregarModal() {
+        this.isAgregarModalVisible = false;
       }
-    },      
-    computed: {      
+
+
+    },
+    computed: {
     },
 
     beforeMount() {

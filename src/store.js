@@ -14,6 +14,7 @@ export default new Vuex.Store({
         },
         order: [],
         total_order: 0,
+        editablePizza: ""
     },
     actions : {
         new_total({commit}, parcial) {

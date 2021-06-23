@@ -36,7 +36,7 @@
               <!-- <button class="btn btn-red p-2" @click="mostrarFormulario(pizza)" v-show="!pizza.editable">EDITAR</button> -->
 
               <!-- EDIT -->
-              <button type="button" class="btn btn-red"  @click="showModal">EDITAR</button>
+              <button type="button" class="btn btn-red"  @click="showModal(pizza)">EDITAR</button>
               
 
               <!-- DELETE  -->
@@ -229,8 +229,9 @@
         }
       },
 
-      showModal() {
+      showModal(pizza) {
         this.isModalVisible = true;
+        this.$store.state.editablePizza = pizza
       },
       closeModal() {
         this.isModalVisible = false;

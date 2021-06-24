@@ -38,7 +38,7 @@
               <!-- PRECIO -->
               <validate tag="div">
                 <label for="precioPizza">Precio</label>
-                <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control mb-2" v-model.number="formData.precioPizza" :min="precioMin" :max="precioMax" required placeholder="Precio">
+                <input type="number" id="precioPizza" name="precioPizza"  class="form-control mb-2" v-model.number="formData.precioPizza" :min="precioMin" :max="precioMax" required placeholder="Precio">
                 <field-messages name="precioPizza" show="$dirty">
                   <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                   <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
@@ -53,7 +53,7 @@
           </slot>
         </section>
         <footer class="modal-footer">
-          <button type="button" class="btn btn-secondary"  @click="close()">
+          <button type="button" class="btn btn-secondary" @click="close()">
             Cancelar
           </button>
         </footer>
@@ -64,19 +64,17 @@
 </template>
 
 <script lang="js">
-
   export default  {
     name: 'src-components-modal-agregar-pizza',
     props: [
       'pizzaList'
     ],
     mounted () {
-
     },
     data () {
       return {
         url: 'http://localhost:5000/api/pizzas/',
-        // pizzas: [],
+        pizzas: [],
         nombrePizzaMinLength: 3,
         descripcionPizzanMinLength: 3,
         precioMin: 0,
@@ -90,7 +88,6 @@
       close() {
         this.$emit('close');
       },
-
       getInitialData() {
         return {
           nombrePizza: '',
@@ -98,7 +95,6 @@
           precioPizza: ''
         }
       },
-
       async postPizzasAxios() {
         let pizza = {
           name: this.formData.nombrePizza,
@@ -115,24 +111,17 @@
         catch(error) {
           console.log(error)
         }
-        close()
+        
       },
-
-
     },
     computed: {
-
     }
 }
-
-
 </script>
 
 <style scoped lang="css">
   .src-components-modal-agregar-pizza {
-
   }
-
   .modal-backdrop {
     position: fixed;
     top: 0;
@@ -144,7 +133,6 @@
     justify-content: center;
     align-items: center;
   }
-
   .modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
@@ -157,38 +145,32 @@
     top: 100px;
     left: 33%;
   }
-
   .modal-header,
   .modal-footer {
     margin: 15px;
     display: flex;
   }
-
   .modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     color: #C0182F;
     justify-content: space-between;
   }
-
   .center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
   .modal-footer {
     border-top: 1px solid #eeeeee;
     flex-direction: column;
     justify-content: flex-end;
   }
-
   .modal-body {
     position: relative;
     padding: 20px 10px;
   }
-
   .btn-close {
     position: absolute;
     top: 0;
@@ -201,7 +183,6 @@
     color: #4AAE9B;
     background: transparent;
   }
-
   .btn-green {
     color: white;
     background: #4AAE9B;

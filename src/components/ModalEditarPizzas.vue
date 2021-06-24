@@ -5,7 +5,7 @@
         <div class="modal center">
           <header class="modal-header">
             <slot name="header">
-              Modificar pizza: <b> {{ pizzaAEditar.name }} </b>
+              Modificar pizza: <b> {{ this.$store.state.editablePizza.name }} </b>
             </slot>
 
             <button type="button" class="close btn btn-red" @click="close()" data-dismiss="modal" aria-label="Close">
@@ -13,7 +13,7 @@
             </button>
           </header>
 
-          {{ pizzaToEdit }}
+          {{ this.$store.state.editablePizza }}
 
           <section class="modal-body">
             <slot name="body">
@@ -21,7 +21,7 @@
               <vue-form :state="formState" @submit.prevent="editar()">
                 <validate tag="div">
                   <label for="nombrePizza">Nombre</label>
-                  <input type="text" id="nombrePizza" name="nombrePizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.nombrePizza" :minlength="nombrePizzaMinLength" required placeholder="Nuevo nombre">
+                  <input type="text" id="nombrePizza" name="nombrePizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.name" :minlength="nombrePizzaMinLength" required placeholder="Nuevo nombre">
                   <field-messages name="nombrePizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ nombrePizzaMinLength }} caracteres</div>
@@ -30,7 +30,7 @@
                 <!-- DESCRIPCIÓN -->
                 <validate tag="div">
                   <label for="descripcionPizza">Descripción</label>
-                  <input type="text" id="descripcionPizza" name="descripcionPizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.descripcionPizza" required :minlength="descripcionPizzanMinLength" placeholder="Nueva descripción">
+                  <input type="text" id="descripcionPizza" name="descripcionPizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.description" required :minlength="descripcionPizzanMinLength" placeholder="Nueva descripción">
                   <field-messages name="descripcionPizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div> 
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ descripcionPizzanMinLength }} caracteres</div>
@@ -40,7 +40,7 @@
                 <!-- PRECIO -->
                 <validate tag="div">
                   <label for="precioPizza">Precio</label>
-                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control mb-2" v-model.number="pizzaAEditar.precioPizza" :min="precioMin" :max="precioMax" required placeholder="Nuevo precio">
+                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control mb-2" v-model.number="pizzaAEditar.prize" :min="precioMin" :max="precioMax" required placeholder="Nuevo precio">
                   <field-messages name="precioPizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                     <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
@@ -49,7 +49,7 @@
                 </validate>
               <br>
               {{ pizzaAEditar }}
-              <button class="btn btn-red p-2" type="submit" @click="editar(pizzaToEdit._id)" :disabled="formState.$invalid">
+              <button class="btn btn-red p-2" type="submit" @click="editar()" :disabled="formState.$invalid">
                 EDITAR PIZZA
               </button>
             </vue-form>
@@ -67,14 +67,10 @@
 </template>
 
 <script lang="js">
-
   export default  {
     name: 'src-components-modal-editar-pizzas',
-    props: [
-      'pizzaToEdit'
-    ],
+    props: [],
     mounted () {
-
     },
     data () {
       return {
@@ -93,55 +89,40 @@
      close() {
         this.$emit('close');
       },
-
       getInitialData() {
         return {
-          nombrePizza: '',
-          descripcionPizza: '',
-          precioPizza: ''
+          name: '',
+          description: '',
+          prize: ''
         }
       },
-
-      async editar(id) {
-        let pizza = {
-          name: this.pizzaAEditar.nombrePizza,
-          description: this.pizzaAEditar.descripcionPizza,
-          prize: this.pizzaAEditar.precioPizza
-          
-        }
+      async editar() {
+        this.$store.state.editablePizza.name = this.pizzaAEditar.name
+        this.$store.state.editablePizza.description = this.pizzaAEditar.description
+        this.$store.state.editablePizza.prize = this.pizzaAEditar.prize
         try {
-          let respuesta = await this.axios.patch(this.url+id, pizza, {'content-type':'application/json'})
+          let respuesta = await this.axios.patch(this.url+this.$store.state.editablePizza._id, this.$store.state.editablePizza, {'content-type':'application/json'})
           
           let pizzita = respuesta.data
           console.log(pizzita)
           let index = this.pizzas.findIndex(pizza => pizza._id == pizzita.id)
-          this.pizzas.splice(index,1,pizza)
-
-          // Tendría que pasar la pizza nueva a la tabla en EditarPizzas
-
-
+          this.pizzas.splice(index,1,this.$store.state.editablePizza)
           this.formData = this.getInitialData()
-          alert(`La pizza ${pizza.nombre} se actualizó correctamente`)
-
+          // alert(`La pizza ${pizza.nombre} se actualizó correctamente`)
           this.close()
         }
         catch(error) {
           console.log(error)
         }
       },
-
     },
     computed: {
-
     }
 }
-
-
 </script>
 
 <style scoped lang="css">
   .src-components-modal-editar-pizzas {
-
   }
   .modal-backdrop {
     position: fixed;
@@ -154,7 +135,6 @@
     justify-content: center;
     align-items: center;
   }
-
   .modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
@@ -166,14 +146,12 @@
     justify-content: center !important;
     height: auto;
   }
-
   .center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
   .modal-dialog {
     background: #FFFFFF;
     display: flex;
@@ -186,31 +164,26 @@
     flex-direction: column;
     border-radius: 6px;
 }
-
   .modal-header,
   .modal-footer {
     margin: 15px;
     display: flex;
   }
-
   .modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     color: #C0182F;
     justify-content: space-between;
   }
-
   .modal-footer {
     border-top: 1px solid #eeeeee;
     flex-direction: column;
     justify-content: flex-end;
   }
-
   .modal-body {
     position: relative;
     padding: 20px 10px;
   }
-
   .btn-close {
     position: absolute;
     top: 0;
@@ -223,7 +196,6 @@
     color: #4AAE9B;
     background: transparent;
   }
-
   .btn-green {
     color: white;
     background: #4AAE9B;

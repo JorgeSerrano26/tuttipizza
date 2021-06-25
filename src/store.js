@@ -14,6 +14,7 @@ export default new Vuex.Store({
         order: [],
         orderId: "",
         total_order: 0,
+        editablePizza: "",
         payment_method: "Efectivo",
         pizzas: [],
         state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"]

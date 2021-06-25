@@ -8,18 +8,54 @@
           <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
       </header>
-      <table v-if="pedidos.length" class="table table-stripped">
+
+      <table class="table table-stripped" v-if="orders.length">
         <thead>
-          <tr>
-          <th v-for="(col,index) in getCols" :key="index" style="background-color: #c0182f; color: white">{{col}}</th>
+          <tr style="background-color: #c0182f; color: white">
+            <th>N° de Pedido</th>
+            <th>Usuario</th>
+            <th>Dirección</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-        <tr v-for="(pedido, index) in pedidos" :key="index">
-          <td v-for="(col, index) in getCols" :key="index" style="color: #424242;">{{pedido[col]}}</td>
-        </tr>
+          <tr v-for="order in activeOrders()" :key="order._id">
+            <th><font size="+1"> {{order._id}} </font></th>
+            <td> {{order.user.name }} </td>
+            <td> {{order.user.address}} {{order.user.address_number}} </td>
+            <td> {{order.user.floor}} </td>
+            <td> ${{order.payment.total_order}} </td>
+            <td> {{order.state}} </td>
+            <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
+          </tr>
         </tbody>
       </table>
+      <h3 class="title1">Historial de pedidos</h3>
+      <table class="table table-stripped" v-if="orders.length">
+        <thead>
+          <tr style="background-color: #c0182f; color: white">
+            <th>N° de Pedido</th>
+            <th>Usuario</th>
+            <th>Dirección</th>
+            <th>Departamento</th>
+            <th>Monto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="order in historyOrders()" :key="order._id">
+            <th><font size="+1"> {{order._id}} </font></th>
+            <td> {{order.user.name }} </td>
+            <td> {{order.user.address}} {{order.user.address_number}} </td>
+            <td> {{order.user.floor}} </td>
+            <td> ${{order.payment.total_order}} </td>
+          </tr>
+        </tbody>
+      </table>
+      
       <div class="form-group">
         <router-link to="/homeAdmin">
           <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ DE ADMINISTRADOR</a>
@@ -32,38 +68,59 @@
 
 <script lang="js">
 
+  // import axios from 'axios';
+
   export default  {
     name: 'src-components-estado-pedidos',
     props: [],
     mounted () {
 
     },
+    
     data () {
       return {
-        url: 'http://localhost:5000/api/pizzas/',
-        pedidos: []
+        url: 'http://localhost:5000/api/orders/',
+        orders: [],
       }
     },
 
     methods: {
-      getPedidosAxios() {
+      getOrdersAxios() {
         this.axios(this.url)
-        .then(respuesta => {
-          console.log(respuesta.data)
-          this.pedidos = respuesta.data
+        .then(({ data }) => {
+          this.orders = data.map((order) => ({
+            ...order
+          }))
         })
         .catch(error => console.error(error))
-      }
+      },
+      
+      moveOrder(order) {
+        if (order.state != "Archivado") {
+          const newIndex = (this.$store.state.state.indexOf(order.state))+1
+          const newState = this.$store.state.state[newIndex]
+          console.log(newState)
+          this.axios.patch(`${this.url}${order._id}`, {state: newState})
+          console.log(newIndex, newState)
+        }
+      },
+
+      activeOrders() {
+        return this.orders.filter(i => i.state != 'Archivado')
+      },
+
+      historyOrders() {
+        return this.orders.filter(i => i.state == 'Archivado')
+      },
+
     },
 
     computed: {
-      getCols() {
-        return Object.keys(this.pedidos[0])
-      }
+      
     },
 
     beforeMount() {
-      this.getPedidosAxios()
+      this.getOrdersAxios()
     }
 }
 

@@ -115,7 +115,7 @@
                     <br>
                     <p>DETALLE DEL PEDIDO:</p>
                     <ul v-for="pizza in printPizza" :key="pizza.id">
-                      {{ pizza.name }} x {{pizza.cantidad}}
+                      {{ pizza.name }} x {{pizza.count}}: ${{pizza.prize}}
                     </ul>
                     <hr>
                     <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
@@ -148,6 +148,8 @@
 
 <script lang="js">
 
+  import axios from 'axios';
+
   export default  {
     name: 'src-components-detalle-pedido',
     props: [],
@@ -155,6 +157,7 @@
     },
     data () {
       return {
+        url: 'http://localhost:5000/api/orders/',
         formData: this.getInitialData(),
         formState: {},
         minLength: 3,
@@ -171,17 +174,37 @@
           payment_method: 'Efectivo'
           }
         },
+      saveOrderDetails() {
+      this.$store.state.pizzas.forEach(pizza => {
+        if (pizza.count > 0) {
+          this.$store.dispatch('savePizza', pizza)
+        }
+      });
+    },
       send() {
         this.$store.dispatch('setName', this.formData.name)
         this.$store.dispatch('setAddress', this.formData.address)
         this.$store.dispatch('setAddressNumber', this.formData.address_number)
         this.$store.dispatch('setFloor', this.formData.floor)
+        this.saveOrderDetails()
+        const order = {
+          user: this.$store.state.user, 
+          order: this.$store.state.order, 
+          payment: {
+            payment_method: this.$store.state.payment_method, 
+            total_order: this.$store.state.total_order
+            }, 
+          state: this.$store.state.state[0]
+        }
+        console.log(order)
+        axios.post(this.url, order)
         this.formData = this.getInitialData()
+        this.$store.dispatch('resetValues')
         }
     },
     computed: {
       printPizza() {
-        return this.$store.state.order.filter(i => i.cantidad > 0)
+        return this.$store.state.pizzas.filter(i => i.count > 0)
       },
       
     },

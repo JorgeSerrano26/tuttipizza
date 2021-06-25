@@ -8,7 +8,31 @@
         </div>
       </header>
 
-      <table class="table table-stripped" v-if="pizzas.length">
+      <h3 style="title2">¡Armá tu propia pizza!</h3>
+
+      <table class="table table-stripped mt-4">
+        <thead>
+          <tr style="background-color: #c0182f; color: white;">
+            <th>Pizza personalizada</th>
+            <th>Precio</th>
+            <th>Agregá</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>
+            ¡Armá la pizza como vos quieras! Elegí de nuestra variedad de ingredientes
+          </td>
+          <td>${{ customPizzaPrice }}</td>
+          <td>
+            <button class="btn btn-red" @click="openCustomPizzaModal()">AGREGAR PIZZA PERSONALIZADA</button>
+            
+          </td>
+        </tr>
+      </table>
+
+      <h3>Pizzas de la casa</h3>
+
+      <table class="table table-stripped mt-4" v-if="pizzas.length" style="vertical-align: middle">
         <thead>
           <tr style="background-color: #c0182f; color: white">
             <th>Nombre</th>
@@ -55,13 +79,20 @@
         </router-link>
       </div>
     </div>
+
+    <ModalCustomPizza v-show="isCustomPizzModalOpen" @close="closeModal" />
   </section>
 </template>
 
 <script lang="js">
 
+  import ModalCustomPizza from './ModalCustomPizza'
+
   export default  {
     name: 'src-components-realizar-pedido',
+    components: {
+      ModalCustomPizza
+    },
     props: [],
     mounted () {
 
@@ -71,6 +102,9 @@
       return {
         url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
+        customPizzas: [],
+        isCustomPizzModalOpen:  false,
+        customPizzaPrice: 1500
       }
     },
 
@@ -109,6 +143,14 @@
         this.pizzas.forEach(pizza => {
           this.$store.dispatch('savePizza', pizza)
         });
+      },
+
+      openCustomPizzaModal() {
+        this.isCustomPizzModalOpen = true
+      },
+
+      closeModal() {
+        this.isCustomPizzModalOpen = false;
       }
 
     },

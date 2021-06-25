@@ -13,7 +13,6 @@
             </button>
           </header>
 
-          {{ this.$store.state.editablePizza }}
 
           <section class="modal-body">
             <slot name="body">
@@ -48,7 +47,6 @@
                   </field-messages>
                 </validate>
               <br>
-              {{ pizzaAEditar }}
               <button class="btn btn-red p-2" type="submit" @click="editar()" :disabled="formState.$invalid">
                 EDITAR PIZZA
               </button>
@@ -82,7 +80,8 @@
         precioMax: 50000,
         pizzaAEditar: {},
         formData: this.getInitialData(),
-        formState: {}
+        formState: {},
+        pizza: this.$store.state.editablePizza
       }
     },
     methods: {

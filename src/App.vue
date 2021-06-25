@@ -5,12 +5,10 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-  components: {
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
@@ -20,28 +18,37 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
+  height: 100vh;
 }
 
 .btn-red {
-    background-color: #C0182F !important;
-    color: white !important;
-    margin: 1rem;
+  background-color: #c0182f !important;
+  color: white !important;
+  margin: 1rem;
+  border-color: #c0182f !important;
   }
 
-  .img-size {
-    width: 200px;
-    height: 200px;
-  }
+.img-size {
+  width: 200px;
+  height: 200px;
+}
 
-  .img-size2 {
-    width: 100px;
-    height: 100px;
-  }
+.img-size2 {
+  width: 100px;
+  height: 100px;
+}
 
-  .title1 {
-    font-weight: 700  !important;
-    color: #707070;
-    font-family: Roboto;
-  }
+.title1 {
+  font-weight: 700 !important;
+  color: #707070;
+  font-family: Roboto;
+}
+
+.title2 {
+  font-weight: 700 !important;
+  color: #c0182f;
+  font-family: Roboto;
+  text-transform: uppercase;
+}
 </style>

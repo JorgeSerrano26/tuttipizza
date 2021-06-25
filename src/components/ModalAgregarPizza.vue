@@ -16,7 +16,7 @@
         <section class="modal-body">
           <slot name="body">
             <!-- NOMBRE -->
-            <vue-form :state="formState" @submit.prevent="postPizzasAxios()">
+            <vue-form :state="formState">
               <validate tag="div">
                 <label for="nombrePizza">Nombre</label>
                 <input type="text" id="nombrePizza" name="nombrePizza"  class="form-control mb-2" v-model.trim="formData.nombrePizza" :minlength="nombrePizzaMinLength" required placeholder="Nombre">

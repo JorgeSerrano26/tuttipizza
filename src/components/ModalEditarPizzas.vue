@@ -13,7 +13,6 @@
             </button>
           </header>
 
-
           <section class="modal-body">
             <slot name="body">
               <!-- NOMBRE -->

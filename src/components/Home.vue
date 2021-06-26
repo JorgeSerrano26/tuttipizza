@@ -10,11 +10,11 @@
           <div class="form-group">
             Número de pedido
             <br>
-            <input type="text" name="pedido" id="pedido" autcomplete="off" v-model.trim="pedido" autocomplete="off" />
+            <input type="text" name="pedido" id="pedido" autcomplete="off" v-model.trim="orderId" autocomplete="off" />
           </div>
           <div class="form-group">
             <router-link to="/estadoPedido">
-              <a type="button" class="btn btn-red btn-block">VER ESTADO DEL PEDIDO</a>
+              <a type="button" class="btn btn-red btn-block" @click="checkOrderId()">VER ESTADO DEL PEDIDO</a>
             </router-link>
           </div>
         </div>
@@ -33,10 +33,13 @@
 
     data () {
       return {
-        pedido: ""
+        orderId: ""
       }
     },
     methods: {
+      checkOrderId() {
+        this.$store.dispatch('setOrderId', this.orderId)
+      }
 
     },
     computed: {

@@ -32,7 +32,7 @@
 
       <h3>Pizzas de la casa</h3>
 
-      <table class="table table-stripped mt-4" v-if="pizzas.length" style="vertical-align: middle">
+      <table class="table table-stripped mt-4" v-if="this.$store.state.pizzas.length" style="vertical-align: middle">
         <thead>
           <tr style="background-color: #c0182f; color: white">
             <th>Nombre</th>
@@ -42,18 +42,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="pizza in pizzas" :key="pizza.id">
+          <tr v-for="pizza in this.$store.state.pizzas" :key="pizza.id">
             <th><font size="+1"> {{pizza.name}} </font></th>
             <td> {{pizza.description}} </td>
             <td> ${{pizza.prize}} </td>
                 <button
-                  :disabled="pizza.cantidad === 0"
+                  :disabled="pizza.count === 0"
                   class="btn btn-red"
                   @click="restar(pizza)"
                 >
                   -
                 </button>
-                {{ pizza.cantidad }}
+                {{ pizza.count }}
                 <button class="btn btn-red" @click="sumar(pizza)">+</button>
           </tr>
         </tbody>
@@ -65,7 +65,7 @@
 
       <div class="form-group">
         <router-link to="/detallePedido">
-          <button @click="saveOrderDetails()" type="button" class="btn btn-red btn-block" v-show=" this.$store.state.total_order != 0">
+          <button type="button" class="btn btn-red btn-block" v-show=" this.$store.state.total_order != 0">
             CONTINUAR
           </button>
         </router-link>
@@ -110,30 +110,32 @@
 
     methods: {
       getPizzasAxios() {
-        this.axios(this.url)
-        .then(({ data }) => {
-          this.pizzas = data.map((pizza) => ({
-            ...pizza,
-            cantidad: 0,
-          }))
-        })
-        .catch(error => console.error(error))
+        if (this.$store.state.pizzas.length == 0) {
+          this.axios(this.url)
+          .then(({ data }) => {
+            this.$store.state.pizzas = data.map((pizza) => ({
+              ...pizza,
+              count: 0,
+            }))
+          })
+          .catch(error => console.error(error))
+        }
       },
 
       sumar(pizza) {
-        pizza.cantidad++
+        pizza.count++
       },
 
       restar(pizza) {
-        if(pizza.cantidad > 0){
-          pizza.cantidad--
+        if(pizza.count > 0){
+          pizza.count--
         } 
       },
 
       getTotalPedido() {
         let parcial = 0;
-        this.pizzas.forEach(pizza => {
-          parcial += (parseInt(pizza.prize) * (pizza.cantidad))
+        this.$store.state.pizzas.forEach(pizza => {
+          parcial += (parseInt(pizza.prize) * (pizza.count))
         });
         this.$store.dispatch('new_total', parcial)
         return this.$store.state.total_order

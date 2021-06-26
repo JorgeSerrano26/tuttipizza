@@ -8,15 +8,13 @@
           <img src="../assets/logo tutti pizza.png" class="img-fluid img-size2" alt="TuttiPizza logo" />
         </div>
       </header>
-
-    
-        <h2>Tu pedido se encuentra</h2>
-        <br>
-        <h2 style="color: #C0182F">En preparación</h2>
+        <h2>Pedido N° {{this.$store.state.orderId}} </h2>
+        <h2 v-if="validOrder()" style="color: #C0182F">Su pedido se encuentra en [ESTADO]</h2>
+        <h2 v-else style="color: #C0182F">Lo sentimos pero su pedido no ha podido ser encontrado</h2>
         <br>
       <div class="form-group">
         <router-link to="/home">
-        <a type="button" class="btn btn-red btn-block">VOLVER AL MENÚ PRINCIPAL</a>
+        <a type="button" class="btn btn-red btn-block" @click="reserOrderId()">VOLVER AL MENÚ PRINCIPAL</a>
         </router-link>
       </div>
     </div>
@@ -34,14 +32,23 @@
     },
     data () {
       return {
-
+        url: 'http://localhost:5000/api/orders/',
+        orders: []
       }
     },
     methods: {
-
+      getOrdersAxios() {
+        this.axios.get(this.url).then(response => (this.orders = response.data))
+      },
+      validOrder() {
+        return this.orders.some(order => order._id == this.$store.state.orderId)
+      },
+      reserOrderId() {
+        this.$store.dispatch('setOrderId', "")
+      }
     },
-    computed: {
-
+    beforeMount() {
+      this.getOrdersAxios()
     }
 }
 

@@ -13,8 +13,6 @@
             </button>
           </header>
 
-          {{ this.$store.state.editablePizza }}
-
           <section class="modal-body">
             <slot name="body">
               <!-- NOMBRE -->
@@ -48,7 +46,6 @@
                   </field-messages>
                 </validate>
               <br>
-              {{ pizzaAEditar }}
               <button class="btn btn-red p-2" type="submit" @click="editar()" :disabled="formState.$invalid">
                 EDITAR PIZZA
               </button>
@@ -67,14 +64,10 @@
 </template>
 
 <script lang="js">
-
   export default  {
     name: 'src-components-modal-editar-pizzas',
-    props: [
-      'pizzaToEdit'
-    ],
+    props: [],
     mounted () {
-
     },
     data () {
       return {
@@ -86,14 +79,14 @@
         precioMax: 50000,
         pizzaAEditar: {},
         formData: this.getInitialData(),
-        formState: {}
+        formState: {},
+        pizza: this.$store.state.editablePizza
       }
     },
     methods: {
      close() {
         this.$emit('close');
       },
-
       getInitialData() {
         return {
           name: '',
@@ -101,7 +94,6 @@
           prize: ''
         }
       },
-
       async editar() {
         this.$store.state.editablePizza.name = this.pizzaAEditar.name
         this.$store.state.editablePizza.description = this.pizzaAEditar.description
@@ -113,32 +105,22 @@
           console.log(pizzita)
           let index = this.pizzas.findIndex(pizza => pizza._id == pizzita.id)
           this.pizzas.splice(index,1,this.$store.state.editablePizza)
-
-          // Tendría que pasar la pizza nueva a la tabla en EditarPizzas
-
-
-          // this.formData = this.getInitialData()
+          this.formData = this.getInitialData()
           // alert(`La pizza ${pizza.nombre} se actualizó correctamente`)
-
           this.close()
         }
         catch(error) {
           console.log(error)
         }
       },
-
     },
     computed: {
-
     }
 }
-
-
 </script>
 
 <style scoped lang="css">
   .src-components-modal-editar-pizzas {
-
   }
   .modal-backdrop {
     position: fixed;
@@ -151,7 +133,6 @@
     justify-content: center;
     align-items: center;
   }
-
   .modal {
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
@@ -163,14 +144,12 @@
     justify-content: center !important;
     height: auto;
   }
-
   .center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-
   .modal-dialog {
     background: #FFFFFF;
     display: flex;
@@ -183,31 +162,26 @@
     flex-direction: column;
     border-radius: 6px;
 }
-
   .modal-header,
   .modal-footer {
     margin: 15px;
     display: flex;
   }
-
   .modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     color: #C0182F;
     justify-content: space-between;
   }
-
   .modal-footer {
     border-top: 1px solid #eeeeee;
     flex-direction: column;
     justify-content: flex-end;
   }
-
   .modal-body {
     position: relative;
     padding: 20px 10px;
   }
-
   .btn-close {
     position: absolute;
     top: 0;
@@ -220,7 +194,6 @@
     color: #4AAE9B;
     background: transparent;
   }
-
   .btn-green {
     color: white;
     background: #4AAE9B;

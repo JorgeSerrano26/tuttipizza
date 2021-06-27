@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-              <!-- <ModalEditarPizzas v-show="this.$store.state.isAddModalVisible" @close="closeModal" /> -->
+              <ModalEditarPizzas v-show="$store.state.editModalVisible" />
             <td>
                 {{ pizza.name }}
             </td>
@@ -33,7 +33,7 @@
             </td>
             <div class="d-flex flex-row">
               <!-- EDIT -->
-              <button type="button" class="btn btn-red"  @click="showModal(pizza)">EDITAR</button>
+              <button type="button" class="btn btn-red"  @click="showEditModal(pizza)">EDITAR</button>
               <!-- DELETE  -->
               <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
             </div>
@@ -42,6 +42,7 @@
     </table>
 
     <ModalAgregarPizza v-show="this.$store.state.isAddModalVisible" :pizzaList="pizzas" />
+
 
     <!-- ADD  -->
     <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
@@ -57,12 +58,12 @@
 </template>
 
 <script lang="js">
-  // import ModalEditarPizzas from './ModalEditarPizzas';
+  import ModalEditarPizzas from './ModalEditarPizzas';
   import ModalAgregarPizza from './ModalAgregarPizza';
   export default  {
     name: 'src-components-editar-pizzas',
     components: {
-      // ModalEditarPizzas,
+      ModalEditarPizzas,
       ModalAgregarPizza
     },
     props: [],
@@ -136,8 +137,8 @@
         }
       },
 
-      showModal(pizza) {
-        this.$store.state.isEditModalVisible = true;
+      showEditModal(pizza) {
+        this.$store.state.editModalVisible = true
         this.$store.state.editablePizza = pizza
       },
       showAgregarModal() {

@@ -85,7 +85,7 @@
     },
     methods: {
      close() {
-        this.$store.state.isEditModalVisible = false;
+        this.$store.state.editModalVisible = false;
       },
       getInitialData() {
         return {

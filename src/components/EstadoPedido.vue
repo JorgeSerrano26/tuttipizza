@@ -9,12 +9,12 @@
         </div>
       </header>
         <h2>Pedido N° {{this.$store.state.orderId}} </h2>
-        <h2 v-if="validOrder()" style="color: #C0182F">Su pedido se encuentra en [ESTADO]</h2>
+        <h2 v-if="validOrder()" style="color: #C0182F">Su pedido se encuentra en "{{this.$store.state.orderSearch}}"</h2>
         <h2 v-else style="color: #C0182F">Lo sentimos pero su pedido no ha podido ser encontrado</h2>
         <br>
       <div class="form-group">
         <router-link to="/home">
-        <a type="button" class="btn btn-red btn-block" @click="reserOrderId()">VOLVER AL MENÚ PRINCIPAL</a>
+        <a type="button" class="btn btn-red btn-block" @click="resetOrderId()">VOLVER AL MENÚ PRINCIPAL</a>
         </router-link>
       </div>
     </div>
@@ -41,9 +41,13 @@
         this.axios.get(this.url).then(response => (this.orders = response.data))
       },
       validOrder() {
-        return this.orders.some(order => order._id == this.$store.state.orderId)
+        if (this.orders.some(order => order.order_id == this.$store.state.orderId)) {
+          this.axios.get(this.url+this.$store.state.orderId).then((response) => this.$store.state.orderSearch = response.data.state)
+          return true
+        }
+        return false
       },
-      reserOrderId() {
+      resetOrderId() {
         this.$store.dispatch('setOrderId', "")
       }
     },

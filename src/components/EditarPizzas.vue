@@ -41,7 +41,7 @@
       </tbody>
     </table>
 
-    <ModalAgregarPizza v-show="isAgregarModalVisible" @close="closeAgregarModal" :pizzaList="pizzas" />
+    <ModalAgregarPizza v-show="this.$store.state.isModalVisible" :pizzaList="pizzas" />
 
     <!-- ADD  -->
     <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
@@ -81,9 +81,7 @@
         formData2: this.getInitialData(),
         formState: {},
         formState2: {},
-        pizzaAEditar: {},
-        isModalVisible: false,
-        isAgregarModalVisible: false
+        pizzaAEditar: {}
       }
     },
     methods: {
@@ -140,7 +138,7 @@
       },
 
       showModal(pizza) {
-        this.isModalVisible = true;
+        this.$store.state.isModalVisible = true;
         this.$store.state.editablePizza = pizza
       },
       closeModal() {

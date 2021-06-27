@@ -17,7 +17,8 @@ export default new Vuex.Store({
         editablePizza: "",
         payment_method: "Efectivo",
         pizzas: [],
-        state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"]
+        state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"],
+        isModalVisible: false
     },
     actions : {
         new_total({commit}, parcial) {

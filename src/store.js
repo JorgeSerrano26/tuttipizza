@@ -21,7 +21,8 @@ export default new Vuex.Store({
         isModalVisible: false,
         isAddModalVisible: false,
         editModalVisible: false,
-        orderResponse: ""
+        orderResponse: "",
+        orderSearch: ""
     },
     actions : {
         new_total({commit}, parcial) {

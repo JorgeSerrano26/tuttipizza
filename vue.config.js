@@ -1,10 +1,10 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/tuttipizza" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   devServer: {
     compress: true,
     disableHostCheck: true,
   },
-  publicPath: "/tuttipizza/",
+  // publicPath: "/tuttipizza/",
   pages: {
     index: {
       // entry for the page

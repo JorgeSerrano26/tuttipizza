@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-          <ModalEditarPizzas v-show="isModalVisible" @close="closeModal" />
+              <!-- <ModalEditarPizzas v-show="this.$store.state.isAddModalVisible" @close="closeModal" /> -->
             <td>
                 {{ pizza.name }}
             </td>
@@ -41,7 +41,7 @@
       </tbody>
     </table>
 
-    <ModalAgregarPizza v-show="this.$store.state.isModalVisible" :pizzaList="pizzas" />
+    <ModalAgregarPizza v-show="this.$store.state.isAddModalVisible" :pizzaList="pizzas" />
 
     <!-- ADD  -->
     <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
@@ -57,12 +57,12 @@
 </template>
 
 <script lang="js">
-  import ModalEditarPizzas from './ModalEditarPizzas';
+  // import ModalEditarPizzas from './ModalEditarPizzas';
   import ModalAgregarPizza from './ModalAgregarPizza';
   export default  {
     name: 'src-components-editar-pizzas',
     components: {
-      ModalEditarPizzas,
+      // ModalEditarPizzas,
       ModalAgregarPizza
     },
     props: [],
@@ -88,7 +88,6 @@
       getPizzasAxios() {
         this.axios(this.url)
         .then(({ data }) => {
-          console.log('data', data)
           this.pizzas = data.map((pizza) => ({
             ...pizza,
             editable: false,
@@ -138,18 +137,12 @@
       },
 
       showModal(pizza) {
-        this.$store.state.isModalVisible = true;
+        this.$store.state.isEditModalVisible = true;
         this.$store.state.editablePizza = pizza
       },
-      closeModal() {
-        this.isModalVisible = false;
-      },
       showAgregarModal() {
-        this.isAgregarModalVisible = true;
+        this.$store.state.isAddModalVisible = true;
       },
-      closeAgregarModal() {
-        this.isAgregarModalVisible = false;
-      }
     },
     computed: {
     },

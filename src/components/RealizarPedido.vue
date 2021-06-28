@@ -25,9 +25,40 @@
           <td>${{ customPizzaPrice }}</td>
           <td>
             <button class="btn btn-red" @click="openCustomPizzaModal()">AGREGAR PIZZA PERSONALIZADA</button>
-            
           </td>
         </tr>
+      </table>
+
+
+
+      <table class="table table-stripped" v-if="this.$store.state.customPizzas.length">
+        <thead>
+          <tr style="background-color: #c0182f; color: white;">
+            <th>Nombre</th>
+            <th>Masa</th>
+            <th>Queso</th>
+            <th>Toppings</th>
+            <th>Aceitunas</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="customPizza in this.$store.state.customPizzas" :key="customPizza._id">
+            <td> {{ customPizza.name }} </td>
+            <td> {{ customPizza.dough }}</td>
+            <td> {{ customPizza.cheese }}</td>
+            <td> 
+              <!-- <ul>
+                <li v-for="topping in this.$store.state.customPizza.toppings" :key="topping.id">
+                {{ topping }}
+                </li>
+              </ul> -->
+              {{ customPizza.toppings }}
+            </td>
+            <td> {{ customPizza.olives }}</td>
+            <td> ${{ customPizzaPrice }}</td>
+          </tr>
+        </tbody>
       </table>
 
       <h3>Pizzas de la casa</h3>

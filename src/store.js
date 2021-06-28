@@ -18,6 +18,7 @@ export default new Vuex.Store({
         payment_method: "Efectivo",
         pizzas: [],
         state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"],
+        customPizzas: [],
         isModalVisible: false,
         isAddModalVisible: false,
         editModalVisible: false,

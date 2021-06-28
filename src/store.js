@@ -55,7 +55,7 @@ export default new Vuex.Store({
             state.total_order = parcial
         },
         savePizzaMutation(state, pizza) {
-            state.order.push({"pizza_id": pizza._id, "amount": pizza.count})
+            state.order.push({"pizza_id": pizza._id, "amount": pizza.count, "isCustom": false})
         },
         setNameMutation(state, name) {
             state.user.name = name

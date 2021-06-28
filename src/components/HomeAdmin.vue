@@ -12,6 +12,9 @@
           <router-link to="/editarPizzas">
             <a type="button" class="btn btn-secondary btn-block">VER PIZZAS</a>
           </router-link>
+          <router-link to="/editarIngredientes">
+            <a type="button" class="btn btn-secondary btn-block">VER INGREDIENTS</a>
+          </router-link>
         </div>
       </div>
     </div>

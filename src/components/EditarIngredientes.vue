@@ -37,8 +37,7 @@
       </tbody>
     </table>
 
-    <ModalAgregarIngredient v-show="this.$store.state.isIngredientAddModalVisible" :ingredientList="ingredients" />
-
+    <ModalAgregarIngrediente v-show="this.$store.state.isIngredientAddModalVisible" :ingredientList="ingredients" />
 
     <!-- ADD  -->
     <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
@@ -54,11 +53,11 @@
 </template>
 
 <script lang="js">
-  import ModalAgregarIngredient from './ModalAgregarIngredient';
+  import ModalAgregarIngrediente from './ModalAgregarIngrediente';
   export default  {
     name: 'src-components-editar-ingredientes',
     components: {
-      ModalAgregarIngredient
+      ModalAgregarIngrediente
     },
     props: [],
     mounted () {

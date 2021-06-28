@@ -5,6 +5,7 @@ import Home from './components/Home.vue'
 import ConfirmacionPedido from './components/ConfirmacionPedido.vue'
 import DetallePedido from './components/DetallePedido.vue'
 import EditarPizzas from './components/EditarPizzas.vue'
+import EditarIngredientes from './components/EditarIngredientes.vue'
 import EstadoPedidos from './components/EstadoPedidos.vue'
 import HomeAdmin from './components/HomeAdmin.vue'
 import RealizarPedido from './components/RealizarPedido.vue'
@@ -20,6 +21,7 @@ export const router = new VueRouter({
         { path: '/confirmacionPedido', component: ConfirmacionPedido },
         { path: '/detallePedido', component: DetallePedido },
         { path: '/editarPizzas', component: EditarPizzas },
+        { path: '/editarIngredientes', component: EditarIngredientes },
         { path: '/estadoPedidos', component: EstadoPedidos },
         { path: '/homeAdmin', component: HomeAdmin },
         { path: '/realizarPedido', component: RealizarPedido },

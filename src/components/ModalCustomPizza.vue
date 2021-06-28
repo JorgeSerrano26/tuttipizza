@@ -150,7 +150,7 @@
               </div>
             </div>
              <span style="font-size: 10px;">Seleccionado: {{ customPizza }}</span><br>
-            <button class="btn btn-red" type="submit" @click="addCustomPizzaToOrder()" :disabled="formState.$invalid">
+            <button class="btn btn-red" type="submit" :disabled="formState.$invalid">
               AGREGAR PIZZA
             </button>
             <button type="button" class="btn btn-secondary" @click="close()">
@@ -176,35 +176,33 @@
     data () {
       return {
         nombrePizzaMinLength: 1,
-        formData: this.getInitialData(),
         formState: {},
         cantMaxToppings: 4,
-        customPizzas: [],
-        customPizza: {
-          name: '',
-          dough: '',
-          cheese: '',
-          toppings: [],
-          olives: ''
-          
-        },
+        customPizza: this.getInitialData(),
       }
     },
     methods: {
       close() {
         this.$emit('close');
       },
+
       getInitialData() {
         return {
-          nombrePizza: '',
-          descripcionPizza: '',
-          precioPizza: ''
+          name: '',
+          dough: '',
+          cheese: '',
+          toppings: [],
+          olives: ''
         }
       },
 
       addCustomPizzaToOrder() {
-        this.customPizzas.push(this.customPizza)
-        close() 
+        console.log("test")
+        this.$store.state.customPizzas.push(this.customPizza)
+        // console.log(this.$store.state.customPizzas)
+        this.customPizza = this.getInitialData()
+        this.formState._reset()
+        this.close()
       }
 
     },

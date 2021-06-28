@@ -25,7 +25,6 @@
           <td>${{ customPizzaPrice }}</td>
           <td>
             <button class="btn btn-red" @click="openCustomPizzaModal()">AGREGAR PIZZA PERSONALIZADA</button>
-            
           </td>
         </tr>
       </table>

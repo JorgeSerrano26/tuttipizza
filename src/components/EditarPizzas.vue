@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-          <ModalEditarPizzas v-show="isModalVisible" @close="closeModal" />
+              <ModalEditarPizzas v-show="$store.state.editModalVisible" />
             <td>
                 {{ pizza.name }}
             </td>
@@ -33,7 +33,7 @@
             </td>
             <div class="d-flex flex-row">
               <!-- EDIT -->
-              <button type="button" class="btn btn-red"  @click="showModal(pizza)">EDITAR</button>
+              <button type="button" class="btn btn-red"  @click="showEditModal(pizza)">EDITAR</button>
               <!-- DELETE  -->
               <button class="btn btn-red p-2" @click="borrar(pizza._id)">BORRAR</button>
             </div>
@@ -41,7 +41,8 @@
       </tbody>
     </table>
 
-    <ModalAgregarPizza v-show="isAgregarModalVisible" @close="closeAgregarModal" :pizzaList="pizzas" />
+    <ModalAgregarPizza v-show="this.$store.state.isAddModalVisible" :pizzaList="pizzas" />
+
 
     <!-- ADD  -->
     <button type="button" class="btn btn-red"  @click="showAgregarModal">AGREGAR</button>
@@ -81,16 +82,13 @@
         formData2: this.getInitialData(),
         formState: {},
         formState2: {},
-        pizzaAEditar: {},
-        isModalVisible: false,
-        isAgregarModalVisible: false
+        pizzaAEditar: {}
       }
     },
     methods: {
       getPizzasAxios() {
         this.axios(this.url)
         .then(({ data }) => {
-          console.log('data', data)
           this.pizzas = data.map((pizza) => ({
             ...pizza,
             editable: false,
@@ -139,19 +137,13 @@
         }
       },
 
-      showModal(pizza) {
-        this.isModalVisible = true;
+      showEditModal(pizza) {
+        this.$store.state.editModalVisible = true
         this.$store.state.editablePizza = pizza
       },
-      closeModal() {
-        this.isModalVisible = false;
-      },
       showAgregarModal() {
-        this.isAgregarModalVisible = true;
+        this.$store.state.isAddModalVisible = true;
       },
-      closeAgregarModal() {
-        this.isAgregarModalVisible = false;
-      }
     },
     computed: {
     },

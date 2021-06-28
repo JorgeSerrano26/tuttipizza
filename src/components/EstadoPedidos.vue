@@ -23,11 +23,11 @@
         </thead>
         <tbody>
           <tr v-for="order in activeOrders()" :key="order._id">
-            <th><font size="+1"> {{order._id}} </font></th>
+            <th><font size="+1"> {{order.order_id}} </font></th>
             <td> {{order.user.name }} </td>
             <td> {{order.user.address}} {{order.user.address_number}} </td>
             <td> {{order.user.floor}} </td>
-            <td> ${{order.payment.total_order}} </td>
+            <td> ${{order.total_prize}} </td>
             <td> {{order.state}} </td>
             <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
           </tr>
@@ -47,11 +47,11 @@
         </thead>
         <tbody>
           <tr v-for="order in historyOrders()" :key="order._id">
-            <th><font size="+1"> {{order._id}} </font></th>
+            <th><font size="+1"> {{order.order_id}} </font></th>
             <td> {{order.user.name }} </td>
             <td> {{order.user.address}} {{order.user.address_number}} </td>
             <td> {{order.user.floor}} </td>
-            <td> ${{order.payment.total_order}} </td>
+            <td> ${{order.total_prize}} </td>
           </tr>
         </tbody>
       </table>
@@ -96,11 +96,13 @@
       },
       
       moveOrder(order) {
+        console.log(order, order.state)
         if (order.state != "Archivado") {
           const newIndex = (this.$store.state.state.indexOf(order.state))+1
           const newState = this.$store.state.state[newIndex]
-          console.log(newState)
-          this.axios.patch(`${this.url}${order._id}`, {state: newState})
+          console.log(this.$store.state.state)
+          console.log(newIndex, newState)
+          this.axios.patch(`${this.url}${order.order_id}`, {state: newState})
           console.log(newIndex, newState)
         }
       },

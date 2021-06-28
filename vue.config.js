@@ -4,7 +4,6 @@ module.exports = {
     compress: true,
     disableHostCheck: true,
   },
-  // publicPath: "/tuttipizza/",
   pages: {
     index: {
       // entry for the page

@@ -86,7 +86,7 @@
     },
     methods: {
       close() {
-        this.$emit('close');
+        this.$store.state.isAddModalVisible = false;
       },
       getInitialData() {
         return {

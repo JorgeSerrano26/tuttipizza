@@ -11,7 +11,7 @@
       <br> 
       <br>
       <h2>Tu pedido fue confirmado</h2>
-      <h2>N°123456</h2>
+      <h2>{{this.$store.state.orderResponse}}</h2>
       <br>
       <br>
       <div class="form-group">

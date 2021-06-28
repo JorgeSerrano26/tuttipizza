@@ -128,7 +128,7 @@
       </div>
       <div class="form-group">
         <router-link to="/confirmacionpedido">
-      <button type="submit" @click="send()" v-show="!formState.$invalid && this.importe > this.$store.state.total_order" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
+      <button type="submit" @click="send()" v-show="!formState.$invalid && this.importe >= this.$store.state.total_order" class="btn btn-red btn-block">CONFIRMAR PEDIDO</button>
         </router-link>
       </div>
       <div class="form-group">
@@ -190,14 +190,11 @@
         const order = {
           user: this.$store.state.user, 
           order: this.$store.state.order, 
-          payment: {
-            payment_method: this.$store.state.payment_method, 
-            total_order: this.$store.state.total_order
-            }, 
+          payment_method: this.$store.state.payment_method, 
           state: this.$store.state.state[0]
         }
         console.log(order)
-        axios.post(this.url, order)
+        axios.post(this.url, order).then((res) => (this.$store.state.orderResponse = res.data))
         this.formData = this.getInitialData()
         this.$store.dispatch('resetValues')
         }

@@ -183,7 +183,7 @@
     },
     methods: {
       close() {
-        this.$emit('close');
+        this.$store.state.isModalVisible = false
       },
 
       getInitialData() {

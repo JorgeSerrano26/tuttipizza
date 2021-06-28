@@ -19,6 +19,11 @@ export default new Vuex.Store({
         pizzas: [],
         state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"],
         customPizzas: [],
+        isModalVisible: false,
+        isAddModalVisible: false,
+        editModalVisible: false,
+        orderResponse: "",
+        orderSearch: ""
     },
     actions : {
         new_total({commit}, parcial) {

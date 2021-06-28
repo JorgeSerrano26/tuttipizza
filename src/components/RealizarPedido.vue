@@ -111,7 +111,7 @@
       </div>
     </div>
 
-    <ModalCustomPizza v-show="isCustomPizzModalOpen" @close="closeModal" />
+    <ModalCustomPizza v-show="this.$store.state.isModalVisible" />
   </section>
 </template>
 
@@ -134,7 +134,6 @@
         url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
         customPizzas: [],
-        isCustomPizzModalOpen:  false,
         customPizzaPrice: 1500
       }
     },
@@ -179,7 +178,7 @@
       },
 
       openCustomPizzaModal() {
-        this.isCustomPizzModalOpen = true
+        this.$store.state.isModalVisible = true
       },
 
       closeModal() {

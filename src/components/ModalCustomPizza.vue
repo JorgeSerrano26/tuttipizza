@@ -192,7 +192,8 @@
           dough: '',
           cheese: '',
           toppings: [],
-          olives: ''
+          olives: '',
+          count: 0
         }
       },
 

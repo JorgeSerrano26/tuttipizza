@@ -21,6 +21,7 @@ export default new Vuex.Store({
         customPizzas: [],
         isModalVisible: false,
         isAddModalVisible: false,
+        isIngredientAddModalVisible: false,
         editModalVisible: false,
         orderResponse: "",
         orderSearch: ""

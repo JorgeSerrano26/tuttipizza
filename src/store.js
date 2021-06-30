@@ -20,6 +20,7 @@ export default new Vuex.Store({
         state: ["Pendiente Confirmacion", "En Elaboración", "En la calle", "Entregado", "Archivado"],
         isModalVisible: false,
         isAddModalVisible: false,
+        isIngredientAddModalVisible: false,
         editModalVisible: false,
         orderResponse: "",
         orderSearch: ""

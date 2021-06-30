@@ -15,12 +15,21 @@
 
         <section class="modal-body">
           <slot name="body">
-              <!-- TIPO -->
-
-              <!-- AGREGAR UN DROPDOWN QUE INDIQUE EL TIPO DE INGREDIENTE QUE SE QUIERE AGREGAR-->
-
-              <!-- NOMBRE -->
               <vue-form :state="formState">
+                <validate tag="div">
+                      <label for="typeIngredient">Tipo de Ingrediente</label>
+                      <div class="dropdown">
+                        <button class="btn btn-red dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px; text-align: center;">
+                          Tipo
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 200px; text-align: center;">
+                          <li><a class="dropdown-item" href="#">Masa</a></li>
+                          <li><a class="dropdown-item" href="#">Queso</a></li>
+                          <li><a class="dropdown-item" href="#">Topping</a></li>
+                          <li><a class="dropdown-item" href="#">Aceitunas</a></li>
+                        </ul>
+                      </div>
+                    </validate>
                 <validate tag="div">
                   <label for="nameIngredient">Nombre</label>
                   <input type="text" id="nameIngredient" name="nameIngredient"  class="form-control mb-2" v-model.trim="formData.nameIngredient" :minlength="nameIngredientMinLength" required placeholder="Nombre">
@@ -70,7 +79,7 @@
     },
     methods: {
       close() {
-        this.$store.state.isAddModalVisible = false;
+        this.$store.state.isIngredientAddModalVisible = false;
       },
       getInitialData() {
         return {

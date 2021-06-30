@@ -193,6 +193,7 @@
           cheese: '',
           toppings: [],
           olives: '',
+          prize: 1500,
           count: 0
         }
       },

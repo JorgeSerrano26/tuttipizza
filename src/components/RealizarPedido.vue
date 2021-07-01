@@ -29,9 +29,9 @@
         </tr>
       </table>
 
-
-
-      <table class="table table-stripped" v-if="this.$store.state.customPizzas.length">
+      
+      <h3 v-if="this.$store.state.customPizzas.length">Pizzas Personalizadas</h3>
+      <table v-if="this.$store.state.customPizzas.length" class="table table-stripped">
         <thead>
           <tr style="background-color: #c0182f; color: white;">
             <th>Nombre</th>
@@ -40,6 +40,7 @@
             <th>Toppings</th>
             <th>Aceitunas</th>
             <th>Precio</th>
+            <th>Cantidad</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +57,16 @@
               {{ customPizza.toppings }}
             </td>
             <td> {{ customPizza.olives }}</td>
-            <td> ${{ customPizzaPrice }}</td>
+            <td> ${{ customPizza.prize }}</td>
+            <button
+                  :disabled="customPizza.count === 0"
+                  class="btn btn-red"
+                  @click="restar(customPizza)"
+                >
+                  -
+                </button>
+                {{ customPizza.count }}
+            <button class="btn btn-red" @click="sumar(customPizza)">+</button>
           </tr>
         </tbody>
       </table>
@@ -166,6 +176,9 @@
         let parcial = 0;
         this.$store.state.pizzas.forEach(pizza => {
           parcial += (parseInt(pizza.prize) * (pizza.count))
+        });
+        this.$store.state.customPizzas.forEach(customPizza => {
+          parcial += (parseInt(customPizza.prize) * (customPizza.count))
         });
         this.$store.dispatch('new_total', parcial)
         return this.$store.state.total_order

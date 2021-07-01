@@ -33,6 +33,9 @@ export default new Vuex.Store({
         savePizza({commit}, pizza) {
             commit('savePizzaMutation', pizza)
         },
+        saveCustomPizza({commit}, customPizza) {
+            commit('saveCustomPizzaMutation', customPizza)
+        },
         setName({commit}, name) {
             commit('setNameMutation', name)
         },
@@ -58,6 +61,9 @@ export default new Vuex.Store({
         },
         savePizzaMutation(state, pizza) {
             state.order.push({"pizza_id": pizza._id, "amount": pizza.count, "isCustom": false})
+        },
+        saveCustomPizzaMutation(state, customPizza) {
+            state.order.push({"pizza_id": customPizza._id, "amount": customPizza.count, "isCustom": true})
         },
         setNameMutation(state, name) {
             state.user.name = name

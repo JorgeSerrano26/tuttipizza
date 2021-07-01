@@ -117,6 +117,9 @@
                     <ul v-for="pizza in printPizza" :key="pizza.id">
                       {{ pizza.name }} x {{pizza.count}}: ${{pizza.prize}}
                     </ul>
+                    <ul v-for="pizzaCustom in printCustomPizza" :key="pizzaCustom.id">
+                      {{ pizzaCustom.name }} x {{pizzaCustom.count}}: ${{pizzaCustom.prize}}
+                    </ul>
                     <hr>
                     <p> MONTO TOTAL: ${{ this.$store.state.total_order }} </p>
                   </div>
@@ -179,6 +182,11 @@
         if (pizza.count > 0) {
           this.$store.dispatch('savePizza', pizza)
         }
+      })
+      this.$store.state.customPizzas.forEach(customPizza => {
+        if (customPizza.count > 0) {
+          this.$store.dispatch('saveCustomPizza', customPizza)
+        }
       });
     },
       send() {
@@ -203,7 +211,9 @@
       printPizza() {
         return this.$store.state.pizzas.filter(i => i.count > 0)
       },
-      
+      printCustomPizza() {
+        return this.$store.state.customPizzas.filter(i => i.count > 0)
+      }
     },
   }
 </script>

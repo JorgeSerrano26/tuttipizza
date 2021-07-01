@@ -21,13 +21,10 @@
       <tbody>
         <tr v-for="ingredient in ingredients" :key="ingredient.id" style="vertical-align: middle">
             <td>
-                {{ ingredient.name }}
+                {{ ingredient.typeIngredient }}
             </td>
             <td>
-              {{ ingredient.description }}
-            </td>
-            <td>
-              ${{ ingredient.prize }}
+              {{ ingredient.name }}
             </td>
             <div class="d-flex flex-row">
               <!-- DELETE  -->

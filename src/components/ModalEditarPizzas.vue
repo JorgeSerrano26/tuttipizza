@@ -1,6 +1,6 @@
 <template>
   <section class="src-components-modal-editar-pizzas">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center">
       <div class="modal-backdrop">
         <div class="modal center">
           <header class="modal-header">
@@ -12,8 +12,6 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </header>
-
-          {{ this.$store.state.editablePizza }}
 
           <section class="modal-body">
             <slot name="body">
@@ -48,7 +46,6 @@
                   </field-messages>
                 </validate>
               <br>
-              {{ pizzaAEditar }}
               <button class="btn btn-red p-2" type="submit" @click="editar()" :disabled="formState.$invalid">
                 EDITAR PIZZA
               </button>

@@ -46,7 +46,7 @@
                 </field-messages>
               </validate>
              <br>
-            <button class="btn btn-red p-2" type="submit" @click="postPizzasAxios()" :disabled="formState.$invalid">
+            <button class="btn btn-red p-2" type="submit"  :disabled="formState.$invalid">
               AGREGAR PIZZA
             </button>
           </vue-form>
@@ -111,11 +111,12 @@
           this.pizzaList.push(p)
           this.formData = this.getInitialData()
           this.formState._reset();
+          this.close()
         }
         catch(error) {
           console.log(error)
         }
-        close()
+        
       },
 
 

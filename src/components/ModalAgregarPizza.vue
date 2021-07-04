@@ -99,7 +99,8 @@
         let pizza = {
           name: this.formData.nombrePizza,
           prize: this.formData.precioPizza,
-          description: this.formData.descripcionPizza
+          description: this.formData.descripcionPizza,
+          isCustom: false
         }
         try {
           let respuesta = await this.axios.post(this.url, pizza, {'content-type':'application/json'})

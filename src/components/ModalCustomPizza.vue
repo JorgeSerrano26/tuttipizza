@@ -169,12 +169,15 @@
 
   export default  {
     name: 'src-components-modal-custom-pizza',
-    props: [],
+    props: [
+      'pizzaCustomList'
+    ],
     mounted () {
 
     },
     data () {
       return {
+        url: 'http://localhost:5000/api/pizzas/',
         nombrePizzaMinLength: 1,
         formState: {},
         cantMaxToppings: 4,
@@ -194,16 +197,28 @@
           toppings: [],
           olives: '',
           prize: 1500,
-          count: 0
+          count: 0,
         }
       },
 
-      addCustomPizzaToOrder() {
-        console.log("test")
+      async addCustomPizzaToOrder() {
         this.$store.state.customPizzas.push(this.customPizza)
-        // console.log(this.$store.state.customPizzas)
-        this.customPizza = this.getInitialData()
-        this.formState._reset()
+        let customPizzaCreated = {
+          name: this.customPizza.name,
+          description: 'Una pizza customizada',
+          prize: this.customPizza.prize,
+          isCustom: true
+        }
+        try {
+          let respuesta = await this.axios.post(this.url, customPizzaCreated, {'content-type':'application/json'})
+          let p = respuesta.data
+          this.pizzaCustomList.push(p)
+          this.formData = this.getInitialData()
+          this.formState._reset();
+        }
+        catch(error) {
+          console.log(error)
+        }
         this.close()
       }
 

@@ -36,12 +36,8 @@
                     
                       <label for="dough" class="text2 align-self-start form-control" style="border-color: #FFFFFF">2. Elegí la masa</label>
                       <select v-model="customPizza.dough" class="btn-red btn">
-                         <option disabled value="" style="background-color: #FFFFFF;">Seleccioná un tipo de masa</option>
-
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Tradicional</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Queso y Oregano</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Calabaza</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Glutten Free</option>
+                        <option disabled value="" style="background-color: #FFFFFF;">Seleccioná un tipo de masa</option>
+                        <option v-for="dough in this.dough" :key="dough.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{dough.name}}</option>
                       </select>
                 </div>
 
@@ -50,10 +46,7 @@
                     <label for="cheese" class="text2 align-self-start form-control" style="border-color: #FFFFFF">3. Elegí el queso</label>
                     <select v-model="customPizza.cheese" class="btn-red btn">
                       <option disabled value="" style="background-color: #FFFFFF;">Seleccioná un tipo de queso</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Muzarella</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Queso vegano</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Queso azul</option>
-                        <option style="background-color: #FFFFFF; color: #2c3e50;">Queso cheddar</option>
+                        <option v-for="cheese in this.cheese" :key="cheese.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{cheese.name}}</option>
                     </select>
                 </div>
               </div>
@@ -68,69 +61,12 @@
 
                       <div class="bd-highlight m-3" >
                         <div id='toppings' class="d-flex flex-column align-items-start">
-                          <div class="form-check">
-                            <input type="checkbox" id="tomate" value="tomate" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('tomate')">
-                            <label class="form-check-label " for="tomate">Tomate</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="rucula" value="rucula" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('rucula')">
-                            <label class="form-check-label" for="rucula">Rúcula</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="morron" value="morron" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('morron')">
-                            <label class="form-check-label" for="morron">Morrón</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="anana" value="anana" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('anana')">
-                            <label class="form-check-label" for="anana">Ananá</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="anchoas" value="anchoas" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('anchoas')">
-                            <label class="form-check-label" for="anchoas">Anchoas</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="pepperoni" value="pepperoni" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('pepperoni')">
-                            <label class="form-check-label" for="pepperoni">Pepperoni</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="pepperoni" value="panceta" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('panceta')">
-                            <label class="form-check-label" for="panceta">Pepperoni</label>
-                          </div>
+                          <div v-for="topping in this.toppings" :key="topping.id" class="form-check">
+                            <input type="checkbox" class="form-check-input red-check" @click='actionIngredient(topping.name)' :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes(topping.name)">
+                            <label class="form-check-label">{{topping.name}}</label>
+                          </div>                          
                         </div>
-                      </div>
-
-                      <div class="bd-highlight m-3">
-                        <div id='toppings' class="d-flex flex-column align-items-start">
-                          <div class="form-check">
-                            <input type="checkbox" id="cebolla" value="cebolla" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('cebolla')">
-                            <label class="form-check-label " for="cebolla">Cebolla</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="salchichas" value="salchichas" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('salchichas')">
-                            <label class="form-check-label" for="salchichas">Salchichas</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="berenjena" value="berenjena" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('berenjena')">
-                            <label class="form-check-label" for="berenjena">Berenjena</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="ajo" value="ajo" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('ajo')">
-                            <label class="form-check-label" for="ajo">Ajo</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="salame" value="salame" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('salame')">
-                            <label class="form-check-label" for="salame">Salame</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="palmitos" value="palmitos" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('palmitos')">
-                            <label class="form-check-label" for="palmitos">Palmitos</label>
-                          </div>
-                          <div class="form-check">
-                            <input type="checkbox" id="jamon" value="jamon" class="form-check-input red-check" v-model="customPizza.toppings" :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes('jamon')">
-                            <label class="form-check-label" for="jamon">Jamón</label>
-                          </div>
-                        </div>            
-                      </div>
+                      </div>                      
                   </div>
                 </div>
 
@@ -142,10 +78,7 @@
                 <label for="olives" class="text2 align-self-start form-control" style="border-color: #FFFFFF">5. Elegí aceitunas</label>
                 <select v-model="customPizza.olives" class="btn-red btn">
                   <option disabled value="" style="background-color: #FFFFFF;">Seleccioná las aceitunas</option>
-                  <option style="background-color: #FFFFFF; color: #2c3e50;">Aceitunas verdes</option>
-                  <option style="background-color: #FFFFFF; color: #2c3e50;">Aceitunas negras</option>
-                  <option style="background-color: #FFFFFF; color: #2c3e50;">Aceitunas rellenas</option>
-                  <option style="background-color: #FFFFFF; color: #2c3e50;">Sin aceitunas</option>
+                  <option v-for="olive in this.olives" :key="olive.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{olive.name}}</option>
                 </select>
               </div>
             </div>
@@ -169,21 +102,54 @@
 
   export default  {
     name: 'src-components-modal-custom-pizza',
-    props: [],
+    props: [
+      'pizzaCustomList'
+    ],
     mounted () {
 
     },
     data () {
       return {
+        urlPizza: 'http://localhost:5000/api/pizzas/',
+        urlIngredient: 'http://localhost:5000/api/ingredients/',
+        ingredients: [],
         nombrePizzaMinLength: 1,
         formState: {},
         cantMaxToppings: 4,
         customPizza: this.getInitialData(),
+        dough: [],
+        cheese: [],
+        toppings: [],
+        olives: []
       }
     },
     methods: {
       close() {
         this.$store.state.isModalVisible = false
+      },
+
+      getIngredientsAxios() {
+        if (this.ingredients.length == 0) {
+          this.axios(this.urlIngredient)
+          .then(({ data }) => {
+            this.ingredients = data.map((ingredient) => ({
+              ...ingredient,
+            }))
+            this.dough = this.ingredients.filter(ingredient => ingredient.typeIngredient === 'dough')
+            this.cheese = this.ingredients.filter(ingredient => ingredient.typeIngredient === 'cheese')
+            this.toppings = this.ingredients.filter(ingredient => ingredient.typeIngredient === 'toppings')
+            this.olives = this.ingredients.filter(ingredient => ingredient.typeIngredient === 'olives')
+          })
+          .catch(error => console.error(error))
+        }
+      },
+
+      actionIngredient(topping) {
+        if (this.customPizza.toppings.some(elem => elem === topping)) {
+          this.customPizza.toppings.splice(this.customPizza.toppings.indexOf(topping), 1)
+        } else {
+          this.customPizza.toppings.push(topping)
+        }
       },
 
       getInitialData() {
@@ -194,22 +160,44 @@
           toppings: [],
           olives: '',
           prize: 1500,
-          count: 0
+          count: 0,
         }
       },
 
-      addCustomPizzaToOrder() {
-        console.log("test")
+      async addCustomPizzaToOrder() {
         this.$store.state.customPizzas.push(this.customPizza)
-        // console.log(this.$store.state.customPizzas)
-        this.customPizza = this.getInitialData()
-        this.formState._reset()
+        let customPizzaCreated = {
+          name: this.customPizza.name,
+          description: 'Una pizza customizada',
+          prize: this.customPizza.prize,
+          ingredients: [
+            this.customPizza.dough, 
+            this.customPizza.cheese,
+            this.customPizza.toppings,
+            this.customPizza.olives
+          ],
+          isCustom: true
+        }
+        try {
+          let respuesta = await this.axios.post(this.urlPizza, customPizzaCreated, {'content-type':'application/json'})
+          let p = respuesta.data
+          this.pizzaCustomList.push(p)
+          this.formData = this.getInitialData()
+          this.formState._reset();
+        }
+        catch(error) {
+          console.log(error)
+        }
         this.close()
       }
 
     },
     computed: {
 
+    },
+
+    beforeMount() {
+      this.getIngredientsAxios()
     }
 }
 

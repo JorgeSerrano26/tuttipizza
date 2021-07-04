@@ -48,14 +48,7 @@
             <td> {{ customPizza.name }} </td>
             <td> {{ customPizza.dough }}</td>
             <td> {{ customPizza.cheese }}</td>
-            <td> 
-              <!-- <ul>
-                <li v-for="topping in this.$store.state.customPizza.toppings" :key="topping.id">
-                {{ topping }}
-                </li>
-              </ul> -->
-              {{ customPizza.toppings }}
-            </td>
+            <td> {{ customPizza.toppings }}</td>
             <td> {{ customPizza.olives }}</td>
             <td> ${{ customPizza.prize }}</td>
             <button
@@ -187,6 +180,9 @@
       saveOrderDetails() {
         this.pizzas.forEach(pizza => {
           this.$store.dispatch('savePizza', pizza)
+        });
+        this.customPizzas.forEach(customPizza => {
+          this.$store.dispatch('saveCustomPizza', customPizza)
         });
       },
 

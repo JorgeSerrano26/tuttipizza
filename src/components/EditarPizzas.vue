@@ -9,7 +9,36 @@
         </div>
       </header>
 
+    <h3 v-if="customPizzas.length" class="table table-stripped"> Pizzas Personalizadas</h3>
+    <table v-if="customPizzas.length" class="table table-stripped">
+      <thead>
+        <tr style="background-color: #c0182f; color: white">
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr v-for="customPizza in customPizzas" :key="customPizza.id" style="vertical-align: middle">
+            <td>
+                {{ customPizza.name }}
+            </td>
+            <td>
+              {{ customPizza.description }}
+            </td>
+            <td>
+              ${{ customPizza.prize }}
+            </td>
+            <div class="d-flex flex-row">
+              <!-- DELETE  -->
+              <button class="btn btn-red p-2" @click="borrar(customPizza._id)">BORRAR</button>
+            </div>
+        </tr>
+      </tbody>
+    </table>
 
+    <h3 v-if="pizzas.length" class="table table-stripped"> Pizzas de la Casa</h3>
     <table v-if="pizzas.length" class="table table-stripped">
       <thead>
         <tr style="background-color: #c0182f; color: white">
@@ -20,7 +49,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
+        <tr v-for="pizza in fixedPizzas" :key="pizza.id" style="vertical-align: middle">
               <ModalEditarPizzas v-if="$store.state.editModalVisible" />
             <td>
                 {{ pizza.name }}
@@ -73,6 +102,8 @@
       return {
         url: 'http://localhost:5000/api/pizzas/',
         pizzas: [],
+        fixedPizzas: [],
+        customPizzas: [],
         editable: true,
         nombrePizzaMinLength: 3,
         descripcionPizzanMinLength: 3,
@@ -93,8 +124,21 @@
             ...pizza,
             editable: false,
           }))
+          console.log('estoy adentro del get pizzas', this.pizzas)
+          this.getCustomPizzas()
+          this.getFixedPizzas()
         })
         .catch(error => console.error(error))
+        console.log("custom pizzas", this.customPizzas)
+        console.log("fixed pizzas", this.fixedPizzas)
+      },
+
+      getCustomPizzas() {
+        this.customPizzas = this.pizzas.filter(pizza => pizza.isCustom === true)
+      },
+
+      getFixedPizzas() {
+        this.fixedPizzas = this.pizzas.filter(pizza => pizza.isCustom === false)
       },
 
       //  async editar(id) {

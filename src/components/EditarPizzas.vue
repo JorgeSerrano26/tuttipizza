@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="pizza in pizzas" :key="pizza.id" style="vertical-align: middle">
-              <ModalEditarPizzas v-show="$store.state.editModalVisible" />
+              <ModalEditarPizzas v-if="$store.state.editModalVisible" />
             <td>
                 {{ pizza.name }}
             </td>

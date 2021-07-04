@@ -19,7 +19,7 @@
               <vue-form :state="formState" @submit.prevent="editar()">
                 <validate tag="div">
                   <label for="nombrePizza">Nombre</label>
-                  <input type="text" id="nombrePizza" name="nombrePizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.name" :minlength="nombrePizzaMinLength" required :placeholder="this.$store.state.editablePizza.name">
+                  <input type="text" id="nombrePizza" name="nombrePizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.name" :minlength="nombrePizzaMinLength" required >
                   <field-messages name="nombrePizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ nombrePizzaMinLength }} caracteres</div>
@@ -28,7 +28,7 @@
                 <!-- DESCRIPCIÓN -->
                 <validate tag="div">
                   <label for="descripcionPizza">Descripción</label>
-                  <input type="text" id="descripcionPizza" name="descripcionPizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.description" required :minlength="descripcionPizzanMinLength" :placeholder="this.$store.state.editablePizza.description">
+                  <input type="text" id="descripcionPizza" name="descripcionPizza"  class="form-control mb-2" v-model.trim="pizzaAEditar.description" required :minlength="descripcionPizzanMinLength" >
                   <field-messages name="descripcionPizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div> 
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ descripcionPizzanMinLength }} caracteres</div>
@@ -38,7 +38,7 @@
                 <!-- PRECIO -->
                 <validate tag="div">
                   <label for="precioPizza">Precio</label>
-                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control mb-2" v-model.number="pizzaAEditar.prize" :min="precioMin" :max="precioMax" required :placeholder="this.$store.state.editablePizza.prize">
+                  <input type="number" id="precioPizza" name="precioPizza" autocomplete="off" class="form-control mb-2" v-model.number="pizzaAEditar.prize" :min="precioMin" :max="precioMax" required>
                   <field-messages name="precioPizza" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                     <div slot="min" class="alert alert-danger mt-1">El precio no puede ser menor de {{ precioMin }}</div>
@@ -77,21 +77,21 @@
         descripcionPizzanMinLength: 3,
         precioMin: 0,
         precioMax: 50000,
-        pizzaAEditar: {},
+        pizzaAEditar: this.$store.state.editablePizza,
         formData: this.getInitialData(),
-        formState: {},
-        pizza: this.$store.state.editablePizza
+        formState: {}
       }
     },
     methods: {
      close() {
         this.$store.state.editModalVisible = false;
+        this.$store.state.editablePizza = null
       },
       getInitialData() {
         return {
-          name: '',
-          description: '',
-          prize: ''
+          name: this.$store.state.editablePizza.name,
+          description: this.$store.state.editablePizza.description,
+          prize: this.$store.state.editablePizza.prize
         }
       },
       async editar() {

@@ -76,7 +76,7 @@
                     v-model="formData.floor"
                     autocomplete="off" 
                     class="form-control" 
-                    placeholder="Altura">
+                    placeholder="Piso/Dpto">
                 </validate>
               </vue-form>
             </div>

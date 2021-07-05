@@ -76,7 +76,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="pizza in this.$store.state.pizzas" :key="pizza.id">
+          <tr v-for="pizza in fixedPizzas()" :key="pizza.id">
             <th><font size="+1"> {{pizza.name}} </font></th>
             <td> {{pizza.description}} </td>
             <td> ${{pizza.prize}} </td>
@@ -153,6 +153,10 @@
           })
           .catch(error => console.error(error))
         }
+      },
+
+      fixedPizzas() {
+        return this.$store.state.pizzas.filter((pizza) => pizza.isCustom === false)
       },
 
       sumar(pizza) {

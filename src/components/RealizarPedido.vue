@@ -46,10 +46,10 @@
         <tbody>
           <tr v-for="customPizza in this.$store.state.customPizzas" :key="customPizza._id">
             <td> {{ customPizza.name }} </td>
-            <td> {{ customPizza.dough }}</td>
-            <td> {{ customPizza.cheese }}</td>
-            <td> {{ customPizza.toppings }}</td>
-            <td> {{ customPizza.olives }}</td>
+            <td> {{ customPizza.ingredients.dough }}</td>
+            <td> {{ customPizza.ingredients.cheese }}</td>
+            <td> {{ customPizza.ingredients.toppings }}</td>
+            <td> {{ customPizza.ingredients.olives }}</td>
             <td> ${{ customPizza.prize }}</td>
             <button
                   :disabled="customPizza.count === 0"

@@ -35,7 +35,7 @@
                    <!-- MASA -->
                     
                       <label for="dough" class="text2 align-self-start form-control" style="border-color: #FFFFFF">2. Elegí la masa</label>
-                      <select v-model="customPizza.dough" class="btn-red btn">
+                      <select v-model="customPizza.ingredients.dough" class="btn-red btn">
                         <option disabled value="" style="background-color: #FFFFFF;">Seleccioná un tipo de masa</option>
                         <option v-for="dough in this.dough" :key="dough.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{dough.name}}</option>
                       </select>
@@ -44,7 +44,7 @@
                 <div class="bd-highlight ">
                   <!-- QUESO -->
                     <label for="cheese" class="text2 align-self-start form-control" style="border-color: #FFFFFF">3. Elegí el queso</label>
-                    <select v-model="customPizza.cheese" class="btn-red btn">
+                    <select v-model="customPizza.ingredients.cheese" class="btn-red btn">
                       <option disabled value="" style="background-color: #FFFFFF;">Seleccioná un tipo de queso</option>
                         <option v-for="cheese in this.cheese" :key="cheese.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{cheese.name}}</option>
                     </select>
@@ -62,7 +62,7 @@
                       <div class="bd-highlight m-3" >
                         <div id='toppings' class="d-flex flex-column align-items-start">
                           <div v-for="topping in this.toppings" :key="topping.id" class="form-check">
-                            <input type="checkbox" class="form-check-input red-check" @click='actionIngredient(topping.name)' :disabled="customPizza.toppings.length >= cantMaxToppings && !customPizza.toppings.includes(topping.name)">
+                            <input type="checkbox" class="form-check-input red-check" @click='actionIngredient(topping.name)' :disabled="customPizza.ingredients.toppings.length >= cantMaxToppings && !customPizza.ingredients.toppings.includes(topping.name)">
                             <label class="form-check-label">{{topping.name}}</label>
                           </div>                          
                         </div>
@@ -76,7 +76,7 @@
                 <!-- ACEITUNAS -->
                 
                 <label for="olives" class="text2 align-self-start form-control" style="border-color: #FFFFFF">5. Elegí aceitunas</label>
-                <select v-model="customPizza.olives" class="btn-red btn">
+                <select v-model="customPizza.ingredients.olives" class="btn-red btn">
                   <option disabled value="" style="background-color: #FFFFFF;">Seleccioná las aceitunas</option>
                   <option v-for="olive in this.olives" :key="olive.id" style="background-color: #FFFFFF; color: #2c3e50;"> {{olive.name}}</option>
                 </select>
@@ -145,43 +145,45 @@
       },
 
       actionIngredient(topping) {
-        if (this.customPizza.toppings.some(elem => elem === topping)) {
-          this.customPizza.toppings.splice(this.customPizza.toppings.indexOf(topping), 1)
+        if (this.customPizza.ingredients.toppings.some(elem => elem === topping)) {
+          this.customPizza.ingredients.toppings.splice(this.customPizza.ingredients.toppings.indexOf(topping), 1)
         } else {
-          this.customPizza.toppings.push(topping)
+          this.customPizza.ingredients.toppings.push(topping)
         }
       },
 
       getInitialData() {
         return {
           name: '',
-          dough: '',
-          cheese: '',
-          toppings: [],
-          olives: '',
+          ingredients: {
+            dough: '',
+            cheese: '',
+            toppings: [],
+            olives: ''
+          },
           prize: 1500,
-          count: 0,
+          description: 'Una pizza customizada'
         }
       },
 
       async addCustomPizzaToOrder() {
-        this.$store.state.customPizzas.push(this.customPizza)
-        let customPizzaCreated = {
+        let pizza = {
           name: this.customPizza.name,
-          description: 'Una pizza customizada',
           prize: this.customPizza.prize,
-          ingredients: [
-            this.customPizza.dough, 
-            this.customPizza.cheese,
-            this.customPizza.toppings,
-            this.customPizza.olives
-          ],
-          isCustom: true
+          description: this.customPizza.description,
+          ingredients: {
+            dough: this.customPizza.ingredients.dough,
+            cheese: this.customPizza.ingredients.cheese,
+            toppings: this.customPizza.ingredients.toppings,
+            olives: this.customPizza.ingredients.olives,
+          },
+          isCustom: true,
         }
         try {
-          let respuesta = await this.axios.post(this.urlPizza, customPizzaCreated, {'content-type':'application/json'})
+          let respuesta = await this.axios.post(this.urlPizza, pizza, {'content-type':'application/json'})
           let p = respuesta.data
-          this.pizzaCustomList.push(p)
+          p.count = 0
+          this.$store.state.customPizzas.push(p)
           this.formData = this.getInitialData()
           this.formState._reset();
         }

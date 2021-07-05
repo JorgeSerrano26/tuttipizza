@@ -16,24 +16,18 @@
         <section class="modal-body">
           <slot name="body">
               <vue-form :state="formState">
+                  <label for="typeIngredient">Tipo de Ingrediente</label>         
+                  <select class="btn-red btn" v-model="formData.typeIngredient">
+                    <option disabled value="" style="background-color: #FFFFFF;">Tipo</option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;"> dough </option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;"> cheese </option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;"> toppings </option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;"> olives </option>
+                  </select>
                 <validate tag="div">
-                      <label for="typeIngredient">Tipo de Ingrediente</label>
-                      <div class="dropdown">
-                        <button class="btn btn-red dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px; text-align: center;">
-                          Tipo
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 200px; text-align: center;">
-                          <li><a class="dropdown-item" href="#">Masa</a></li>
-                          <li><a class="dropdown-item" href="#">Queso</a></li>
-                          <li><a class="dropdown-item" href="#">Topping</a></li>
-                          <li><a class="dropdown-item" href="#">Aceitunas</a></li>
-                        </ul>
-                      </div>
-                    </validate>
-                <validate tag="div">
-                  <label for="nameIngredient">Nombre</label>
-                  <input type="text" id="nameIngredient" name="nameIngredient"  class="form-control mb-2" v-model.trim="formData.nameIngredient" :minlength="nameIngredientMinLength" required placeholder="Nombre">
-                  <field-messages name="nameIngredient" show="$dirty">
+                  <label for="name">Nombre</label>
+                  <input type="text" id="name" name="name"  class="form-control mb-2" v-model.trim="formData.name" :minlength="nameIngredientMinLength" required placeholder="Nombre">
+                  <field-messages name="name" show="$dirty">
                     <div slot="required" class="alert alert-danger mt-1">Campo requerido</div>
                     <div slot="minlength" class="alert alert-danger mt-1">Este campo requiere al menos {{ nameIngredientMinLength }} caracteres</div>
                   </field-messages>
@@ -46,6 +40,7 @@
           </slot>
         </section>
         <footer class="modal-footer">
+          <span>{{formData}}</span>
           <button type="button" class="btn btn-secondary" @click="close()">
             Cancelar
           </button>
@@ -68,13 +63,10 @@
       return {
         url: 'http://localhost:5000/api/ingredients/',
         ingredients: [],
-        nombreIngredientMinLength: 3,
+        nameIngredientMinLength: 3,
         descripcionIngredientnMinLength: 3,
-        precioMin: 0,
-        precioMax: 50000,
-        ingredientAEditar: {},
         formData: this.getInitialData(),
-        formState: {}
+        formState: {},
       }
     },
     methods: {
@@ -83,21 +75,18 @@
       },
       getInitialData() {
         return {
-          nombreIngredient: '',
-          descripcionIngredient: '',
-          precioIngredient: ''
+          typeIngredient: '',
+          name: '',
         }
       },
       async postIngredientsAxios() {
         let ingredient = {
-          name: this.formData.nombreIngredient,
-          prize: this.formData.precioIngredient,
-          description: this.formData.descripcionIngredient
+          typeIngredient: this.formData.typeIngredient,
+          name: this.formData.name,
         }
+        console.log(ingredient)
         try {
-          let respuesta = await this.axios.post(this.url, ingredient, {'content-type':'application/json'})
-          let p = respuesta.data
-          this.ingredientList.push(p)
+          await this.axios.post(this.url, ingredient, {'content-type':'application/json'})
           this.formData = this.getInitialData()
           this.formState._reset();
         }

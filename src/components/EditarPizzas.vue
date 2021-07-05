@@ -124,13 +124,10 @@
             ...pizza,
             editable: false,
           }))
-          console.log('estoy adentro del get pizzas', this.pizzas)
           this.getCustomPizzas()
           this.getFixedPizzas()
         })
         .catch(error => console.error(error))
-        console.log("custom pizzas", this.customPizzas)
-        console.log("fixed pizzas", this.fixedPizzas)
       },
 
       getCustomPizzas() {
@@ -141,29 +138,9 @@
         this.fixedPizzas = this.pizzas.filter(pizza => pizza.isCustom === false)
       },
 
-      //  async editar(id) {
-      //   let pizza = {
-      //     name: this.pizzaAEditar.nombrePizza,
-      //     prize: this.pizzaAEditar.precioPizza,
-      //     description: this.pizzaAEditar.descripcionPizza
-      //   }
-      //   try {
-      //     let respuesta = await this.axios.patch(this.url+id, pizza, {'content-type':'application/json'})
-      //     let pizzita = respuesta.data
-      //     let index = this.usuarios.findIndex(pizza => pizza._id == pizzita.id)
-      //     this.pizzas.splice(index,1,pizza)
-      //     this.formData = this.getInicialData()
-      //     alert(`La pizza ${pizzita.nombre} se actualizó correctamente`)
-      //   }
-      //   catch(error) {
-      //     console.log(error)
-      //   }
-      // },
        async borrar(id) {
         try {
-          let respuesta = await this.axios.delete(this.url+id)
-          let piz = respuesta.data
-          console.log(piz)
+          await this.axios.delete(this.url+id)
           let index = this.pizzas.findIndex(pizza => pizza._id == id)
           this.pizzas.splice(index,1)
           alert(`La pizza se elimino correctamente`)

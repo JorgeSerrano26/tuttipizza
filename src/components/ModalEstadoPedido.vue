@@ -44,7 +44,6 @@ this.orders.some(order => order.order_id == this.$store.state.orderId)
       validOrder() { 
         if (this.orders.some(order => order.order_id == this.$store.state.orderId)) {
           this.axios.get(this.url+this.$store.state.orderId).then((response) => this.order_search = response)
-          console.log(this.order_search)
           return true
         }
         return false

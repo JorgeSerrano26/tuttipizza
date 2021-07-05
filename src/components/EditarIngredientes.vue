@@ -80,9 +80,7 @@
 
        async borrar(id) {
         try {
-          let respuesta = await this.axios.delete(this.url+id)
-          let ingr = respuesta.data
-          console.log(ingr)
+          await this.axios.delete(this.url+id)
           let index = this.ingredients.findIndex(ingredient => ingredient._id == id)
           this.ingredients.splice(index,1)
           alert(`El ingrediente se elimino correctamente`)

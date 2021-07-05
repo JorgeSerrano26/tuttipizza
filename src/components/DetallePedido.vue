@@ -201,7 +201,6 @@
           payment_method: this.$store.state.payment_method, 
           state: this.$store.state.state[0]
         }
-        console.log(order)
         axios.post(this.url, order).then((res) => (this.$store.state.orderResponse = res.data))
         this.formData = this.getInitialData()
         this.$store.dispatch('resetValues')

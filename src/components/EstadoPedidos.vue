@@ -96,8 +96,6 @@
       },
       
       async moveOrder(order) {
-        console.log(order, order._id)
-        console.log(this.url+order._id+'/next')
         try {
           await this.axios.post(this.url+order.order_id+'/next', {'content-type':'application/json'})
         }

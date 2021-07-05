@@ -82,7 +82,6 @@
                 </select>
               </div>
             </div>
-             <span style="font-size: 10px;">Seleccionado: {{ customPizza }}</span><br>
             <button class="btn btn-red" type="submit" :disabled="formState.$invalid">
               AGREGAR PIZZA
             </button>

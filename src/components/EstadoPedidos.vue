@@ -95,16 +95,15 @@
         .catch(error => console.error(error))
       },
       
-      moveOrder(order) {
-        console.log(order, order.state)
-        if (order.state != "Archivado") {
-          const newIndex = (this.$store.state.state.indexOf(order.state))+1
-          const newState = this.$store.state.state[newIndex]
-          console.log(this.$store.state.state)
-          console.log(newIndex, newState)
-          this.axios.patch(`${this.url}${order.order_id}`, {state: newState})
-          console.log(newIndex, newState)
+      async moveOrder(order) {
+        console.log(order, order._id)
+        console.log(this.url+order._id+'/next')
+        try {
+          await this.axios.post(this.url+order.order_id+'/next', {'content-type':'application/json'})
         }
+        catch(error) {
+          console.log(error)
+        }        
       },
 
       activeOrders() {

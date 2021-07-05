@@ -102,7 +102,6 @@
           let respuesta = await this.axios.patch(this.url+this.$store.state.editablePizza._id, this.$store.state.editablePizza, {'content-type':'application/json'})
           
           let pizzita = respuesta.data
-          console.log(pizzita)
           let index = this.pizzas.findIndex(pizza => pizza._id == pizzita.id)
           this.pizzas.splice(index,1,this.$store.state.editablePizza)
           this.formData = this.getInitialData()

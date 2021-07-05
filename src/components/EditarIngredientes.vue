@@ -12,7 +12,7 @@
     <table v-if="ingredients.length" class="col-sm-6" style="float: left">
       <thead>
         <tr style="background-color: #c0182f; color: white">
-          <th>Masas</th>
+          <th><h3>Masas</h3></th>
           <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
         </tr>
       </thead>
@@ -32,7 +32,7 @@
     <table v-if="ingredients.length" class="col-sm-6" style="float: right">
       <thead>
         <tr style="background-color: #c0182f; color: white">
-          <th>Quesos</th>
+          <th><h3>Quesos</h3></th>
           <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
         </tr>
       </thead>
@@ -52,7 +52,7 @@
     <table v-if="ingredients.length" class="col-sm-6" style="float: left">
       <thead>
         <tr style="background-color: #c0182f; color: white">
-          <th>Toppings</th>
+          <th><h3>Toppings</h3></th>
           <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
         </tr>
       </thead>
@@ -72,7 +72,7 @@
     <table v-if="ingredients.length" class="col-sm-6" style="float: right">
       <thead>
         <tr style="background-color: #c0182f; color: white">
-          <th>Aceitunas</th>
+          <th><h3>Aceitunas</h3></th>
           <th style="background-color: #c0182f; color: white" class="sticky-col first-col"></th>
         </tr>
       </thead>

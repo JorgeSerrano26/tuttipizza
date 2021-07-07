@@ -7,16 +7,28 @@
           <router-link to="/realizarPedido">
             <a type="button" class="btn btn-red btn-block">REALIZAR UN PEDIDO</a>
           </router-link>
-          <div class="form-group">
-            Número de pedido
-            <br>
-            <input type="text" name="pedido" id="pedido" autcomplete="off" v-model.trim="orderId" autocomplete="off" />
-          </div>
-          <div class="form-group">
-            <router-link to="/estadoPedido">
-              <a type="button" class="btn btn-red btn-block" @click="checkOrderId()">VER ESTADO DEL PEDIDO</a>
-            </router-link>
-          </div>
+          <vue-form :state="formState">
+            <validate tag="div">
+              <div class="form-group">
+                Número de pedido
+                <br>
+                <input type="text" name="orderId" id="orderId" autcomplete="off" v-model.trim="formData.orderId" autocomplete="off" minlength="5" required/>
+                <field-messages name="orderId" show="$dirty">
+                    <div slot="required" class="text-red mt-1">Ingrese el número de orden</div>
+                    <div slot="minlength" class="text-red mt-1">Este campo requiere como mínimo {{ minLength }} caracteres</div>
+                </field-messages>
+                
+                <div v-if="formState.$invalid">
+                  <a type="button" class="btn btn-secondary" disabled>VER ESTADO DEL PEDIDO</a>
+                </div>
+                <div v-else>
+                  <router-link to="/estadoPedido">
+                    <a type="button" class="btn btn-red btn-block" @click="checkOrderId()">VER ESTADO DEL PEDIDO</a>
+                  </router-link>
+                </div>
+              </div>
+            </validate>
+          </vue-form>
         </div>
       </div>
     </div>
@@ -33,13 +45,20 @@
 
     data () {
       return {
-        orderId: ""
+        formData: this.getInitialData(),
+        formState: {},
+        minLength: 5,
       }
     },
     methods: {
       checkOrderId() {
-        this.$store.dispatch('setOrderId', this.orderId)
-      }
+        this.$store.dispatch('setOrderId', this.formmData.orderId)
+      },
+       getInitialData() {
+        return {
+         orderId : ''
+          }
+        },
 
     },
     computed: {
@@ -53,4 +72,12 @@
 <style scoped lang="css">
 .home {
 }
+
+ .text-red {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-family: roboto;
+    color: #C0182F;
+  }
 </style>

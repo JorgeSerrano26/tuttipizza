@@ -29,6 +29,10 @@ export default {
   border-color: #c0182f !important;
   }
 
+.btn-secondary {
+  margin: 1rem;
+}
+
 .img-size {
   width: 200px;
   height: 200px;

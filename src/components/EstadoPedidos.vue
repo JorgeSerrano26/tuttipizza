@@ -29,7 +29,7 @@
             <td> {{order.user.floor}} </td>
             <td> ${{order.total_prize}} </td>
             <td> {{order.state}} </td>
-            <button class="btn btn-red" @click="moveOrder(order)">AVANZAR ESTADO</button>
+            <button class="btn btn-red" @click="moveOrder(order.order_id)">AVANZAR ESTADO</button>
           </tr>
         </tbody>
       </table>
@@ -68,8 +68,6 @@
 
 <script lang="js">
 
-  // import axios from 'axios';
-
   export default  {
     name: 'src-components-estado-pedidos',
     props: [],
@@ -95,9 +93,9 @@
         .catch(error => console.error(error))
       },
       
-      async moveOrder(order) {
+      async moveOrder(id) {
         try {
-          await this.axios.post(this.url+order.order_id+'/next', {'content-type':'application/json'})
+          await this.axios.patch(this.url+id+'/next', {'content-type':'application/json'})
         }
         catch(error) {
           console.log(error)

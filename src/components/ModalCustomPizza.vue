@@ -181,7 +181,7 @@
         try {
           let respuesta = await this.axios.post(this.urlPizza, pizza, {'content-type':'application/json'})
           let p = respuesta.data
-          p.count = 0
+          p.count = 1
           this.$store.state.customPizzas.push(p)
           this.formData = this.getInitialData()
           this.formState._reset();

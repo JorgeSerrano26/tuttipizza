@@ -95,7 +95,7 @@
       
       async moveOrder(id) {
         try {
-          await this.axios.patch(this.url+id+'/next', {'content-type':'application/json'})
+          await this.axios.post(this.url+id+'/next', {'content-type':'application/json'})
         }
         catch(error) {
           console.log(error)

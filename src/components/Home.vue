@@ -52,7 +52,7 @@
     },
     methods: {
       checkOrderId() {
-        this.$store.dispatch('setOrderId', this.formmData.orderId)
+        this.$store.dispatch('setOrderId', this.formData.orderId)
       },
        getInitialData() {
         return {

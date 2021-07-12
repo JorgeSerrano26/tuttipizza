@@ -48,18 +48,20 @@
             <td> {{ customPizza.name }} </td>
             <td> {{ customPizza.ingredients.dough }}</td>
             <td> {{ customPizza.ingredients.cheese }}</td>
-            <td> {{ customPizza.ingredients.toppings }}</td>
+            <td>
+              <span class="badge bg-danger me-1" v-for="topping in customPizza.ingredients.toppings" :key="topping">{{ topping }}</span>
+            </td>
             <td> {{ customPizza.ingredients.olives }}</td>
             <td> ${{ customPizza.prize }}</td>
             <button
                   :disabled="customPizza.count === 0"
-                  class="btn btn-red"
+                  class="btn btn-red btn-counter"
                   @click="restar(customPizza)"
                 >
                   -
                 </button>
                 {{ customPizza.count }}
-            <button class="btn btn-red" @click="sumar(customPizza)">+</button>
+            <button class="btn btn-red btn-counter" @click="sumar(customPizza)">+</button>
           </tr>
         </tbody>
       </table>
@@ -82,13 +84,13 @@
             <td> ${{pizza.prize}} </td>
                 <button
                   :disabled="pizza.count === 0"
-                  class="btn btn-red"
+                  class="btn btn-red btn-counter"
                   @click="restar(pizza)"
                 >
                   -
                 </button>
                 {{ pizza.count }}
-                <button class="btn btn-red" @click="sumar(pizza)">+</button>
+                <button class="btn btn-red btn-counter" @click="sumar(pizza)">+</button>
           </tr>
         </tbody>
       </table>
@@ -214,5 +216,11 @@
 
 <style scoped lang="css">
 .src-components-realizar-pedido {
+}
+
+.btn-counter {
+  width: 30px;
+  height: 30px;
+  line-height: 0px;
 }
 </style>

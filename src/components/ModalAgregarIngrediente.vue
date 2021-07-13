@@ -19,10 +19,10 @@
                   <label for="typeIngredient">Tipo de Ingrediente</label>         
                   <select class="btn-red btn" v-model="formData.typeIngredient">
                     <option disabled value="" style="background-color: #FFFFFF;">Tipo</option>
-                    <option style="background-color: #FFFFFF; color: #2c3e50;"> dough </option>
-                    <option style="background-color: #FFFFFF; color: #2c3e50;"> cheese </option>
-                    <option style="background-color: #FFFFFF; color: #2c3e50;"> toppings </option>
-                    <option style="background-color: #FFFFFF; color: #2c3e50;"> olives </option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;" value="dough">Masa</option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;" value="cheese">Queso</option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;" value="toppings">Toppings</option>
+                    <option style="background-color: #FFFFFF; color: #2c3e50;" value="olives">Aceitunas</option>
                   </select>
                 <validate tag="div">
                   <label for="name">Nombre</label>
@@ -40,7 +40,6 @@
           </slot>
         </section>
         <footer class="modal-footer">
-          <span>{{formData}}</span>
           <button type="button" class="btn btn-secondary" @click="close()">
             Cancelar
           </button>
